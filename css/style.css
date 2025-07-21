@@ -2021,3 +2021,22 @@ ul {
         border-bottom-color: var(--color-primary);
     }
 }
+
+/* ... (all previous styles remain the same) ... */
+
+/* ================== FORM VALIDATION STYLES ================== */
+.form-input-error {
+    border-color: #F87171 !important; /* Red for errors */
+    box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.4) !important;
+}
+
+.form-error-message {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: #F87171;
+    border: 1px solid #F87171;
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+    font-size: 0.95rem;
+    font-weight: var(--fw-medium);
+    text-align: center;
+}

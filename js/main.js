@@ -1,17 +1,64 @@
-console.log("ElectroHub Main JavaScript Initialized (Final SPA Mode).");
+// =================================================================
+// --- 1. UTILITY FUNCTIONS (Defined outside the main listener) ---
+// =================================================================
+// These functions are self-contained and do not need access to the global 'state' object.
 
+/**
+ * Initializes the mobile hamburger menu toggle functionality.
+ */
+function initializeMobileMenu() {
+  const hamburgerToggle = document.getElementById("hamburger-menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (
+    hamburgerToggle &&
+    mobileMenu &&
+    !hamburgerToggle.dataset.listenerAttached
+  ) {
+    hamburgerToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("is-active");
+    });
+    hamburgerToggle.dataset.listenerAttached = "true";
+  }
+}
+
+/**
+ * Initializes the product detail page (PDP) image gallery.
+ */
+function initializePDPGallery() {
+  const mainImage = document.getElementById("main-product-image");
+  const thumbnails = document.querySelectorAll(
+    ".gallery-thumbnails .thumbnail"
+  );
+
+  if (mainImage && thumbnails.length > 0) {
+    thumbnails.forEach((thumb) => {
+      if (!thumb.dataset.listenerAttached) {
+        thumb.addEventListener("click", function () {
+          mainImage.src = this.src;
+          thumbnails.forEach((t) => t.classList.remove("active"));
+          this.classList.add("active");
+        });
+        thumb.dataset.listenerAttached = "true";
+      }
+    });
+  }
+}
+
+// =================================================================
+// --- 2. MAIN APPLICATION LOGIC ---
+// =================================================================
 document.addEventListener("DOMContentLoaded", () => {
-  // --- 1. GLOBAL STATE & ROUTE DEFINITIONS ---
+  console.log("ElectroHub Main JavaScript Initialized (Final SPA Mode).");
+
+  // --- 2.1. GLOBAL STATE & ROUTE DEFINITIONS ---
   const state = {
     cart: JSON.parse(localStorage.getItem("electroHubCart")) || [],
-     currentUser: JSON.parse(localStorage.getItem('electroHubUser')) || null, // NEW: User state
-
+    currentUser: JSON.parse(localStorage.getItem("electroHubUser")) || null,
     shippingCost: 15.0,
     taxRate: 0.075,
   };
 
-  // --- 1. ROUTE DEFINITIONS ---
-  // Maps the URL hash to the content file. ALL pages are now modular.
   const routes = {
     "/": "home.html",
     "/departments": "departments.html",
@@ -29,68 +76,57 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainContentContainer = document.getElementById("main-content");
   const cartIcon = document.querySelector('a[href="#/cart"].header-icon');
 
-  // --- 2. STATE MANAGEMENT & UI UPDATES ---
-
-   function saveUserToLocalStorage() {
-        if (state.currentUser) {
-            localStorage.setItem('electroHubUser', JSON.stringify(state.currentUser));
-        } else {
-            localStorage.removeItem('electroHubUser');
-        }
+  // --- 2.2. STATE MANAGEMENT & UI UPDATES ---
+  function saveUserToLocalStorage() {
+    if (state.currentUser) {
+      localStorage.setItem("electroHubUser", JSON.stringify(state.currentUser));
+    } else {
+      localStorage.removeItem("electroHubUser");
     }
-    
-    // NEW: Function to handle the visual changes of logging in/out
-    function updateUserHeader() {
-        const accountLink = document.querySelector('a[href="#/login"].header-icon');
-        const headerActions = document.querySelector('.header-actions');
-        
-        // Clear any existing logout button to prevent duplicates
-        const existingLogoutBtn = document.getElementById('header-logout-btn');
-        if (existingLogoutBtn) existingLogoutBtn.remove();
+  }
 
-        if (state.currentUser) {
-            // User is logged in
-            if(accountLink) accountLink.href = '#/account'; // Link icon to account page
+  function updateUserHeader() {
+    const accountLink = document.querySelector('a[href="#/login"].header-icon');
+    const headerActions = document.querySelector(".header-actions");
 
-            // Create a logout button
-            const logoutButton = document.createElement('a');
-            logoutButton.id = 'header-logout-btn';
-            logoutButton.className = 'btn btn-secondary';
-            logoutButton.textContent = 'Logout';
-            logoutButton.href = '#/logout';
-            headerActions.appendChild(logoutButton);
+    const existingLogoutBtn = document.getElementById("header-logout-btn");
+    if (existingLogoutBtn) existingLogoutBtn.remove();
 
-        } else {
-            // User is logged out
-            if(accountLink) accountLink.href = '#/login'; // Link icon back to login
-        }
+    if (state.currentUser) {
+      if (accountLink) accountLink.href = "#/account";
+
+      const logoutButton = document.createElement("a");
+      logoutButton.id = "header-logout-btn";
+      logoutButton.className = "btn btn-secondary";
+      logoutButton.textContent = "Logout";
+      logoutButton.href = "#/logout";
+      headerActions.appendChild(logoutButton);
+    } else {
+      if (accountLink) accountLink.href = "#/login";
     }
+  }
 
-  // Function to save the cart to localStorage
   function saveCartToLocalStorage() {
     localStorage.setItem("electroHubCart", JSON.stringify(state.cart));
   }
 
-  // Function to update the cart icon count
   function updateCartIcon() {
     const cartItemCount = state.cart.reduce(
       (total, item) => total + item.quantity,
       0
-    ); // Sum quantities
+    );
     const cartCountBubble = cartIcon.querySelector(".cart-count-bubble");
 
     if (cartItemCount > 0) {
       if (cartCountBubble) {
         cartCountBubble.textContent = cartItemCount;
       } else {
-        // Create the bubble if it doesn't exist
         const bubble = document.createElement("span");
         bubble.classList.add("cart-count-bubble");
         bubble.textContent = cartItemCount;
         cartIcon.appendChild(bubble);
       }
     } else {
-      // Remove the bubble if the cart is empty
       if (cartCountBubble) {
         cartIcon.removeChild(cartCountBubble);
       }
@@ -98,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function addToCart(productId, productName, price) {
-    // Check if item already exists in cart
     const existingItem = state.cart.find((item) => item.id === productId);
     if (existingItem) {
       existingItem.quantity++;
@@ -112,41 +147,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     console.log("Cart Updated:", state.cart);
-    saveCartToLocalStorage(); // Save after every change
+    saveCartToLocalStorage();
     updateCartIcon();
   }
 
-  // ==========================================================
-  // 3. THIS IS THE COMPLETE AND CORRECTED FUNCTION
-  // ==========================================================
+  // --- 2.3. PAGE-SPECIFIC RENDERING FUNCTIONS ---
   function renderCartPage() {
     requestAnimationFrame(() => {
-      // Define all needed elements at the top of the function's scope
       const itemsContainer = document.getElementById("cart-items-container");
       const cartLayout = document.querySelector(".cart-layout");
       const emptyCartContainer = document.getElementById(
         "empty-cart-container"
       );
 
-      // Safety check: if these elements don't exist, we can't proceed.
-      if (!itemsContainer || !cartLayout || !emptyCartContainer) {
-        return;
-      }
+      if (!itemsContainer || !cartLayout || !emptyCartContainer) return;
 
-      // Clear previous items from the list
       itemsContainer.innerHTML = "";
 
       if (state.cart.length === 0) {
-        // If cart is empty, show the message and hide the main layout
         cartLayout.style.display = "none";
         emptyCartContainer.style.display = "block";
       } else {
-        // If cart has items, show the main layout and hide the empty message
         cartLayout.style.display = "grid";
         emptyCartContainer.style.display = "none";
 
         let subtotal = 0;
-
         state.cart.forEach((item) => {
           const itemEl = document.createElement("div");
           itemEl.classList.add("cart-item");
@@ -177,12 +202,10 @@ document.addEventListener("DOMContentLoaded", () => {
           subtotal += item.price * item.quantity;
         });
 
-        // Calculate totals
         const shipping = subtotal > 0 ? state.shippingCost : 0;
         const tax = (subtotal + shipping) * state.taxRate;
         const total = subtotal + shipping + tax;
 
-        // Update the summary UI
         document.getElementById(
           "summary-subtotal"
         ).textContent = `$${subtotal.toFixed(2)}`;
@@ -199,11 +222,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // NEW: Function to render the checkout page's order review
   function renderCheckoutPage() {
     requestAnimationFrame(() => {
       const itemsContainer = document.getElementById("review-items-container");
-      if (!itemsContainer) return; // Exit if not on the checkout page
+      if (!itemsContainer) return;
 
       itemsContainer.innerHTML = "";
       let subtotal = 0;
@@ -246,57 +268,24 @@ document.addEventListener("DOMContentLoaded", () => {
           2
         )}`;
       } else {
-        // If cart is empty, maybe show a message or redirect
         itemsContainer.innerHTML = "<p>Your cart is empty.</p>";
       }
     });
   }
 
-   // NEW: Function to render user data on the account page
-    function renderAccountPage() {
-        requestAnimationFrame(() => {
-            if (state.currentUser) {
-                const nameEl = document.querySelector('.info-value[data-key="name"]');
-                const emailEl = document.querySelector('.info-value[data-key="email"]');
-                if(nameEl) nameEl.textContent = state.currentUser.name;
-                if(emailEl) emailEl.textContent = state.currentUser.email;
-            }
-        });
-    }
-
-  // ===========================================================
-  // --- 4. PAGE-SPECIFIC INITIALIZATION FUNCTIONS ---
-  // ===========================================================
-
-  function initializePDPGallery() {
-    const mainImage = document.getElementById("main-product-image");
-    const thumbnails = document.querySelectorAll(
-      ".gallery-thumbnails .thumbnail"
-    );
-
-    // Check if the necessary elements exist on the page
-    if (mainImage && thumbnails.length > 0) {
-      thumbnails.forEach((thumb) => {
-        // Check if a listener has already been attached to prevent duplicates
-        if (!thumb.dataset.listenerAttached) {
-          thumb.addEventListener("click", function () {
-            // Change the main image src to the clicked thumbnail's src
-            mainImage.src = this.src;
-
-            // Update the 'active' class on the thumbnails
-            thumbnails.forEach((t) => t.classList.remove("active"));
-            this.classList.add("active");
-          });
-          // Mark this thumbnail as having a listener attached
-          thumb.dataset.listenerAttached = "true";
-        }
-      });
-    }
+  function renderAccountPage() {
+    requestAnimationFrame(() => {
+      if (state.currentUser) {
+        const nameEl = document.querySelector('.info-value[data-key="name"]');
+        const emailEl = document.querySelector('.info-value[data-key="email"]');
+        if (nameEl) nameEl.textContent = state.currentUser.name;
+        if (emailEl) emailEl.textContent = state.currentUser.email;
+      }
+    });
   }
 
-  // This function will be called AFTER new content is loaded
+  // --- 2.4. PAGE INITIALIZATION FUNCTIONS (Called after new content is loaded) ---
   function initializePageScripts(path) {
-    // FIX: Now using requestAnimationFrame to delay script execution safely
     requestAnimationFrame(() => {
       if (path === "/product") {
         initializePDPGallery();
@@ -308,36 +297,25 @@ document.addEventListener("DOMContentLoaded", () => {
         renderAccountPage();
       }
     });
-
-    // Add other page-specific initializers here
   }
 
-  
-
-
-  // =================================================================
-  // --- 5. ROUTER LOGIC ---
-  // =================================================================
+  // --- 2.5. ROUTER LOGIC ---
   async function handleRouteChange() {
     const path = location.hash.slice(1) || "/";
 
-     // NEW: Protected Route Logic
-        if (path.startsWith('/account') && !state.currentUser) {
-            // If user tries to access account but isn't logged in, redirect to login
-            location.hash = '/login';
-            return;
-        }
-        
-        // NEW: Handle Logout
-        if (path === '/logout') {
-            state.currentUser = null;
-            saveUserToLocalStorage();
-            updateUserHeader();
-            location.hash = '/'; // Redirect to homepage
-            return;
-        }
+    if (path.startsWith("/account") && !state.currentUser) {
+      location.hash = "/login";
+      return;
+    }
 
-        // ... rest of router logic is unchanged ...
+    if (path === "/logout") {
+      state.currentUser = null;
+      saveUserToLocalStorage();
+      updateUserHeader();
+      location.hash = "/";
+      return;
+    }
+
     const contentFile = routes[path];
 
     mainContentContainer.innerHTML =
@@ -354,11 +332,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!response.ok) throw new Error("Page not found");
 
       const html = await response.text();
-      mainContentContainer.innerHTML = html; // Inject the new content
+      mainContentContainer.innerHTML = html;
 
-      // Run scripts for the newly loaded page
       initializePageScripts(path);
-      window.scrollTo(0, 0); // Scroll to top on page change
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error("Error loading page:", error);
       mainContentContainer.innerHTML =
@@ -366,26 +343,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ============================================================
-  // --- 6. GLOBAL EVENT LISTENERS ---
-  // ============================================================
-  // This runs only once on initial load
-  initializeMobileMenu();
+  // --- 2.6. FORM VALIDATION ---
+  function validateForm(form) {
+    let isValid = true;
+    const errors = [];
+    form
+      .querySelectorAll(".form-input-error")
+      .forEach((el) => el.classList.remove("form-input-error"));
+    const errorMessageContainer = form.querySelector(".form-error-message");
+    if (errorMessageContainer) {
+      errorMessageContainer.style.display = "none";
+      errorMessageContainer.textContent = "";
+    }
 
-  // Listen for URL hash changes to trigger navigation
+    const requiredFields = form.querySelectorAll("[required]");
+    requiredFields.forEach((field) => {
+      if (!field.value.trim()) {
+        isValid = false;
+        field.classList.add("form-input-error");
+        errors.push(`${field.previousElementSibling.textContent} is required.`);
+      }
+    });
+
+    const password = form.querySelector("#register-password");
+    const confirmPassword = form.querySelector("#register-confirm-password");
+    if (
+      password &&
+      confirmPassword &&
+      password.value !== confirmPassword.value
+    ) {
+      isValid = false;
+      confirmPassword.classList.add("form-input-error");
+      errors.push("Passwords do not match.");
+    }
+
+    if (!isValid && errorMessageContainer) {
+      errorMessageContainer.textContent = errors[0];
+      errorMessageContainer.style.display = "block";
+    }
+    return isValid;
+  }
+
+  // --- 2.7. GLOBAL EVENT LISTENERS ---
   window.addEventListener("hashchange", handleRouteChange);
 
-  // UPDATED: Initialize cart icon from localStorage on page load
-  updateCartIcon();
-
-  // Handle the initial page load (e.g., if user bookmarks a deep link like #/cart)
-  handleRouteChange();
-
-  // Event delegation for cart actions
+  // This listener delegates actions for the main content area
   mainContentContainer.addEventListener("click", (event) => {
     const target = event.target;
 
-    // Add to cart
+    // Add to cart buttons
     if (target.closest(".add-to-cart-btn, .add-to-cart-pdp-btn")) {
       event.preventDefault();
       addToCart(Math.random(), "Sample Product", 10.99);
@@ -395,7 +401,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1500);
     }
 
-    // Quantity buttons (NEW)
+    // Cart quantity buttons
     if (target.matches(".quantity-btn")) {
       const productId = parseFloat(target.dataset.id);
       const action = target.dataset.action;
@@ -407,75 +413,53 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (action === "decrease") {
           itemInCart.quantity--;
           if (itemInCart.quantity <= 0) {
-            // Remove item if quantity is 0 or less
             state.cart = state.cart.filter((item) => item.id !== productId);
           }
         }
         saveCartToLocalStorage();
         updateCartIcon();
-        renderCartPage(); // Re-render the cart to show changes
+        renderCartPage();
       }
     }
   });
 
+  // This listener handles form submissions for login and registration
+  mainContentContainer.addEventListener("submit", (event) => {
+    event.preventDefault();
 
- // NEW: Event listener for form submissions
-    mainContentContainer.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent actual form submission
-
-        // Login Form Submission
-        if (event.target.matches('.auth-form[action="#/login"]')) {
-            const email = event.target.querySelector('#login-email').value;
-            // In a real app, you'd send this to a server for validation.
-            // We'll simulate a successful login.
-            if (email) {
-                state.currentUser = { name: "Test User", email: email };
-                saveUserToLocalStorage();
-                updateUserHeader();
-                location.hash = '#/account'; // Redirect to account page
-            }
-        }
-    });
-
-});
-
-
-// =================================================================
-// --- 7. UTILITY FUNCTIONS (Unchanged) ---
-// =================================================================
-
-// The old mobile menu initializer, now moved inside the main listener
-function initializeMobileMenu() {
-  const hamburgerToggle = document.getElementById("hamburger-menu-toggle");
-  const mobileMenu = document.getElementById("mobile-menu");
-
-  if (
-    hamburgerToggle &&
-    mobileMenu &&
-    !hamburgerToggle.dataset.listenerAttached
-  ) {
-    hamburgerToggle.addEventListener("click", () => {
-      mobileMenu.classList.toggle("is-active");
-    });
-    hamburgerToggle.dataset.listenerAttached = "true";
-  }
-}
-
-function initializePDPGallery() {
-  const mainImage = document.getElementById("main-product-image");
-  const thumbnails = document.querySelectorAll(
-    ".gallery-thumbnails .thumbnail"
-  );
-  if (mainImage && thumbnails.length > 0) {
-    thumbnails.forEach((thumb) => {
-      if (!thumb.dataset.listenerAttached) {
-        thumb.addEventListener("click", function () {
-          mainImage.src = this.src;
-          thumbnails.forEach((t) => t.classList.remove("active"));
-          this.classList.add("active");
-        });
-        thumb.dataset.listenerAttached = "true";
+    // Login Form
+    if (event.target.matches('.auth-form[action="#/login"]')) {
+      if (validateForm(event.target)) {
+        const email = event.target.querySelector("#login-email").value;
+        state.currentUser = {
+          name: "Test User",
+          email: email,
+        };
+        saveUserToLocalStorage();
+        updateUserHeader();
+        location.hash = "#/account";
       }
-    });
-  }
-}
+    }
+
+    // Registration Form
+    if (event.target.matches('.auth-form[action="#/register"]')) {
+      if (validateForm(event.target)) {
+        const name = event.target.querySelector("#register-name").value;
+        const email = event.target.querySelector("#register-email").value;
+        state.currentUser = {
+          name: name,
+          email: email,
+        };
+        saveUserToLocalStorage();
+        updateUserHeader();
+        location.hash = "#/account";
+      }
+    }
+  });
+
+  // --- 2.8. INITIAL APPLICATION STARTUP ---
+  initializeMobileMenu();
+  updateCartIcon();
+  updateUserHeader();
+  handleRouteChange();
+});
