@@ -4,8 +4,8 @@
         <!-- ================== BREADCRUMBS ================== -->
         <nav aria-label="Breadcrumb" class="breadcrumbs">
             <ol>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#departments">Products</a></li>
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/departments">Products</a></li>
                 <li><span aria-current="page">Lighting</span></li>
             </ol>
         </nav>
@@ -15,8 +15,8 @@
             
             <!-- ====== SIDEBAR (FILTERS) - To be built next ====== -->
             <aside class="department-sidebar">
-    <h2 class="sidebar-title">Filters</h2>
-    
+                <h2 class="sidebar-title">Filters</h2>
+
     <form class="filter-form">
         <!-- Filter Group: Category -->
         <div class="filter-group">
@@ -71,15 +71,24 @@
             <button type="submit" class="btn btn-primary apply-filters-btn">Apply Filters</button>
         </div>
     </form>
+    <!-- CORRECTED: A single container for our dynamic form -->
+    <div id="dynamic-filter-form-container">
+        <!-- The entire filter form will be rendered here by JavaScript -->
+    </div>
 </aside>
 
             <!-- ====== MAIN CONTENT (PRODUCT GRID) - To be built next ====== -->
             <section class="department-main-content">
     <h1 class="department-title">Lighting</h1>
+
+     <!-- NEW: Add the Sub-Category Navigation Bar container here -->
+            <nav class="subcategory-nav" id="subcategory-nav-container">
+                <!-- Dynamic sub-category links will be rendered here by JS -->
+            </nav>
     <div class="product-grid-wrapper">
 
         <!-- ================== PRODUCT GRID ================== -->
-        <div class="department-product-grid">
+        <div class="department-product-grid" id="product-grid-container">
             <!-- Product 1 -->
             <div class="d-product-card">
                 <a href="#product-link" class="d-product-image-wrapper">
@@ -90,8 +99,12 @@
                     <p class="d-product-description">Energy-efficient LED bulb</p>
                     <p class="d-product-price">$12.99</p>
                 </div>
-                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
-            </div>
+                <!-- Add the two buttons below -->
+<div class="d-product-actions">
+    <button class="btn btn-secondary quick-view-btn" data-product-id="prod123">Quick View</button>
+    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+</div>
+</div>
 
             <!-- Product 2 -->
             <div class="d-product-card">
@@ -103,7 +116,10 @@
                     <p class="d-product-description">Classic incandescent bulb</p>
                     <p class="d-product-price">$4.99</p>
                 </div>
-                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                <div class="d-product-actions">
+                    <button class="btn btn-secondary quick-view-btn" data-product-id="prod124">Quick View</button>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                </div>
             </div>
 
             <!-- Product 3 -->
@@ -116,7 +132,10 @@
                     <p class="d-product-description">Standard fluorescent tube</p>
                     <p class="d-product-price">$19.50</p>
                 </div>
-                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                <div class="d-product-actions">
+                    <button class="btn btn-secondary quick-view-btn" data-product-id="prod125">Quick View</button>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                </div>
             </div>
 
             <!-- Product 4 -->
@@ -129,11 +148,11 @@
                     <p class="d-product-description">Smart bulb with color control</p>
                     <p class="d-product-price">$24.99</p>
                 </div>
-                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                <div class="d-product-actions">
+                    <button class="btn btn-secondary quick-view-btn" data-product-id="prod126">Quick View</button>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                </div>
             </div>
-            
-            <!-- ... Add more product cards as needed to fill the grid ... -->
-        </div>
 
         <!-- ================== PAGINATION ================== -->
         <nav aria-label="Pagination" class="pagination">

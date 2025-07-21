@@ -121,6 +121,12 @@
   <!-- ================== FOOTER (REVISED) ================== -->
   <footer class="site-footer">
     <div class="container">
+      <div class="footer-newsletter">
+            <h4>Stay Connected</h4>
+            <p>Sign up for our newsletter to get the latest deals.</p>
+            <button class="btn btn-secondary" id="open-newsletter-btn">Subscribe</button>
+        </div>
+        
       <div class="footer-top">
         <p>© 2025 ElectroHub. All rights reserved.</p>
         <div class="footer-social">
@@ -177,18 +183,52 @@
 
   <!-- ... (after the chatbot widget and before the script tag) ... -->
 
-<!-- ================== MODAL CONTAINER ================== -->
-<div class="modal-overlay" id="quick-view-modal-overlay" style="display: none;">
+  <!-- ================== MODAL CONTAINER ================== -->
+  <div class="modal-overlay" id="quick-view-modal-overlay" style="display: none;">
     <div class="modal" id="quick-view-modal">
+      <button class="modal-close-btn" aria-label="Close modal">×</button>
+      <div class="modal-content" id="quick-view-modal-content">
+        <!-- Dynamic product content will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ... (after the Quick View Modal) ... -->
+
+<!-- ================== ADD TO CART CONFIRMATION MODAL ================== -->
+<div class="modal-overlay" id="add-to-cart-modal-overlay" style="display: none;">
+    <div class="modal confirmation-modal" id="add-to-cart-modal">
         <button class="modal-close-btn" aria-label="Close modal">×</button>
-        <div class="modal-content" id="quick-view-modal-content">
-            <!-- Dynamic product content will be loaded here -->
+        <div class="modal-content" id="add-to-cart-modal-content">
+            <!-- Dynamic confirmation content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="newsletter-modal-overlay" style="display: none;">
+    <div class="modal confirmation-modal" id="newsletter-modal">
+        <button class="modal-close-btn" aria-label="Close modal">×</button>
+        <div class="modal-content" id="newsletter-modal-content">
+            <h2 class="section-form-title">Subscribe to Our Newsletter</h2>
+            <p class="page-subtitle" style="margin-bottom: 1.5rem;">Get the latest updates on new products and upcoming sales.</p>
+            <form class="newsletter-form">
+                <div class="form-group">
+                    <label for="newsletter-email" class="sr-only">Email Address</label>
+                    <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Subscribe</button>
+            </form>
         </div>
     </div>
 </div>
 
 <script src="js/main.js" defer></script>
 </body>
+</html>
+
+  <script src="js/main.js" defer></script>
+</body>
+
 </html>
 
 </body>

@@ -575,9 +575,11 @@ ul {
     background-color: var(--color-dark-bg-secondary);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
-    text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--color-dark-surface);
+    /* Convert to a flex container for more robust child element alignment */
+    display: flex;
+    flex-direction: column;
 }
 
 .department-card:hover {
@@ -608,6 +610,7 @@ ul {
     padding: 1rem;
     color: var(--color-text-primary);
     background-color: var(--color-dark-bg-secondary); /* Ensure consistent bg */
+    text-align: center; /* Keep text centered within the flex item */
 }
 
 
@@ -1030,7 +1033,8 @@ ul {
 .department-product-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 1.5rem 2rem;
+    
 }
 
 .d-product-card {
@@ -1043,6 +1047,14 @@ ul {
     transition: box-shadow 0.3s ease;
 }
 
+/* New container for buttons */
+.d-product-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0 1.25rem 1.25rem 1.25rem;
+}
+
 .d-product-card:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
@@ -1050,7 +1062,7 @@ ul {
 .d-product-image-wrapper {
     display: block;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3; /* Changed from 1/1 to make cards shorter and match homepage */
     overflow: hidden;
 }
 
@@ -1093,8 +1105,8 @@ ul {
 }
 
 .add-to-cart-btn {
-    width: calc(100% - 2.5rem);
-    margin: 0 1.25rem 1.25rem 1.25rem;
+    width: 100%;
+    margin: 0;
 }
 
 /* ================== PAGINATION STYLES ================== */
@@ -1139,13 +1151,6 @@ ul {
 
 /* Responsive adjustments for Product Grid */
 @media (max-width: 1200px) {
-    .department-product-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    /* On mobile, sidebar stacks, so main grid is 2-col */
     .department-product-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -2039,4 +2044,190 @@ ul {
     font-size: 0.95rem;
     font-weight: var(--fw-medium);
     text-align: center;
+}
+
+/* ==========================================================================
+   MODAL STYLES
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.is-visible {
+    opacity: 1;
+}
+
+.modal {
+    background-color: var(--color-dark-bg-secondary);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--color-dark-surface);
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 2.5rem;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.is-visible .modal {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+.modal-close-btn:hover {
+    color: var(--color-text-primary);
+}
+
+
+/* ================== ADD TO CART CONFIRMATION MODAL STYLES ================== */
+/* A smaller modal for confirmations */
+.confirmation-modal {
+    max-width: 500px;
+    text-align: center;
+}
+
+.confirmation-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: var(--fw-semibold);
+    margin-bottom: 1.5rem;
+    color: var(--color-primary);
+}
+.confirmation-header svg {
+    width: 28px;
+    height: 28px;
+}
+
+.confirmation-product {
+    display: flex;
+    gap: 1.5rem;
+    text-align: left;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-dark-surface);
+    border-bottom: 1px solid var(--color-dark-surface);
+}
+
+.confirmation-product-image {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--border-radius-md);
+    object-fit: cover;
+}
+
+.confirmation-product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.confirmation-product-name {
+    font-weight: var(--fw-semibold);
+    color: var(--color-text-primary);
+}
+
+.confirmation-product-price {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.confirmation-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+
+
+/* ================== FOOTER NEWSLETTER STYLES ================== */
+.footer-newsletter {
+    text-align: center;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--color-dark-surface);
+    margin-bottom: 1.5rem;
+}
+.footer-newsletter h4 {
+    font-size: 1.5rem;
+    font-weight: var(--fw-semibold);
+    margin-bottom: 0.5rem;
+}
+.footer-newsletter p {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* ================== NEWSLETTER MODAL STYLES ================== */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+/* Screen-reader only class for labels */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ... (all previous styles remain the same) ... */
+
+/* ================== SUB-CATEGORY STYLES ================== */
+.subcategory-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-dark-surface);
+}
+
+.subcategory-link {
+    background-color: var(--color-dark-surface);
+    color: var(--color-text-secondary);
+    padding: 8px 16px;
+    border-radius: var(--border-radius-full);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: var(--fw-medium);
+    transition: all 0.2s ease;
+}
+
+.subcategory-link:hover {
+    background-color: var(--color-dark-bg);
+    color: var(--color-text-primary);
+}
+
+.subcategory-link.active {
+    background-color: var(--color-primary);
+    color: var(--color-dark-bg);
+    font-weight: var(--fw-semibold);
 }
