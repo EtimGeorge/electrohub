@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroHub - Your Electronic & Electrical Store</title>
+  <meta name="description" content="From smart lighting to solar solutions, find everything you need.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- JS (defer ensures it runs after HTML parsing) -->
+
+</head>
+
+<body>
+
+  
+  
+
+  <!-- ================== MAIN CONTENT ================== -->
+  <main class="site-main">
+    <!-- /checkout.html (This is the complete and corrected version) -->
+<div class="container">
+    <h1 class="page-main-title">Checkout</h1>
+    <div class="checkout-layout">
+        
+        <!-- ========================================================== -->
+        <!-- LEFT COLUMN: The form from your original file - UNCHANGED AND CORRECT -->
+        <!-- ========================================================== -->
+        <form class="checkout-form">
+            <!-- Shipping Address -->
+            <section class="checkout-section">
+                <h2 class="section-form-title">Shipping Address</h2>
+                <div class="form-group full-width">
+                    <label for="shipping-name">Full Name</label>
+                    <input type="text" id="shipping-name" placeholder="Enter your full name">
+                </div>
+                <div class="form-group full-width">
+                    <label for="shipping-address">Address</label>
+                    <input type="text" id="shipping-address" placeholder="Street address, P.O. box, company name, c/o">
+                </div>
+                <div class="form-group full-width">
+                    <label for="shipping-apt" class="optional-label">Apartment, suite, etc. (optional)</label>
+                    <input type="text" id="shipping-apt" placeholder="Apt, suite, unit, building, floor, etc.">
+                </div>
+                <div class="form-group"><label for="shipping-city">City</label><input type="text" id="shipping-city"></div>
+                <div class="form-group"><label for="shipping-state">State</label><input type="text" id="shipping-state"></div>
+                <div class="form-group"><label for="shipping-zip">Zip Code</label><input type="text" id="shipping-zip"></div>
+                <div class="form-group"><label for="shipping-phone">Phone Number</label><input type="text" id="shipping-phone"></div>
+            </section>
+            
+            <!-- Billing Information -->
+            <section class="checkout-section">
+                <h2 class="section-form-title">Billing Information</h2>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="same-as-shipping" checked>
+                    <label for="same-as-shipping">Same as shipping address</label>
+                </div>
+            </section>
+
+            <!-- Payment Method -->
+            <section class="checkout-section">
+                <h2 class="section-form-title">Payment Method</h2>
+                <p class="payment-secure-note">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    All transactions are secure and encrypted.
+                </p>
+                <div class="form-group full-width">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="Enter your card number">
+                </div>
+                <div class="form-group"><label for="exp-date">Expiration Date</label><input type="text" id="exp-date" placeholder="MM / YY"></div>
+                <div class="form-group"><label for="cvv">CVV</label><input type="text" id="cvv" placeholder="Enter CVV"></div>
+            </section>
+
+            <button type="submit" class="btn btn-primary submit-order-btn">Submit Order</button>
+        </form>
+
+        <!-- ========================================================== -->
+        <!-- RIGHT COLUMN: The order review section - NOW DYNAMIC -->
+        <!-- ========================================================== -->
+        <aside class="order-review">
+            <h2 class="summary-title">Order Review</h2>
+            
+            <!-- This container will be filled by JavaScript -->
+            <div id="review-items-container">
+                <!-- Dynamic review items will be rendered here -->
+            </div>
+
+            <div class="summary-details">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="review-subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="review-shipping">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span id="review-tax">$0.00</span>
+                </div>
+            </div>
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="review-total">$0.00</span>
+            </div>
+        </aside>
+
+    </div>
+</div>
+  </main>
+  
+
+
+  
+
+</body>
+
+<!-- <script src="js/main.js" defer></script> -->
+
+</html>

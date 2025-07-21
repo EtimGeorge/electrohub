@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroHub - Your Electronic & Electrical Store</title>
+  <meta name="description" content="From smart lighting to solar solutions, find everything you need.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- JS (defer ensures it runs after HTML parsing) -->
+
+</head>
+
+<body>
+
+  <main id="main-content" class="site-main">
+    <!-- /account.html -->
+<div class="container">
+    <h1 class="page-main-title">My Account</h1>
+    <div class="account-layout">
+
+        <!-- ====== LEFT COLUMN: ACCOUNT NAVIGATION ====== -->
+        <aside class="account-sidebar">
+            <nav class="account-nav">
+                <ul>
+                    <li><a href="#/account" class="active">Profile Information</a></li>
+                    <li><a href="#/account/orders">Order History</a></li>
+                    <li><a href="#/account/addresses">Saved Addresses</a></li>
+                    <li><a href="#/account/settings">Account Settings</a></li>
+                    <li><a href="#/logout" class="logout-link">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- ====== RIGHT COLUMN: ACCOUNT CONTENT ====== -->
+        <section class="account-main-content">
+            <div class="account-section-header">
+                <h2 class="account-section-title">Profile Information</h2>
+                <button class="btn btn-secondary">Edit Profile</button>
+            </div>
+            
+            <div class="profile-info-grid">
+                <div class="info-item">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value" data-key="name"></span>
+                    <span class="info-value">Ethan Carter</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email Address</span>
+                    <span class="info-value" data-key="email"></span>
+                    <span class="info-value">ethan.carter@example.com</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Phone Number</span>
+                    <span class="info-value">(555) 123-4567</span>
+                </div>
+                 <div class="info-item">
+                    <span class="info-label">Member Since</span>
+                    <span class="info-value">July 19, 2025</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+    </main>
+    </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroHub - Your Electronic & Electrical Store</title>
+  <meta name="description" content="From smart lighting to solar solutions, find everything you need.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- JS (defer ensures it runs after HTML parsing) -->
+
+</head>
+
+<body>
+
+ 
+  
+
+  <!-- ================== MAIN CONTENT ================== -->
+  <main id="main-content" class="site-main">
+    <div class="container">
+        
+        <!-- ================== BREADCRUMBS ================== -->
+        <nav aria-label="Breadcrumb" class="breadcrumbs">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#departments">Products</a></li>
+                <li><span aria-current="page">Lighting</span></li>
+            </ol>
+        </nav>
+
+        <!-- ================== DEPARTMENT PAGE LAYOUT ================== -->
+        <div class="department-page-layout">
+            
+            <!-- ====== SIDEBAR (FILTERS) - To be built next ====== -->
+            <aside class="department-sidebar">
+    <h2 class="sidebar-title">Filters</h2>
+    
+    <form class="filter-form">
+        <!-- Filter Group: Category -->
+        <div class="filter-group">
+            <label for="filter-category" class="filter-label">Category</label>
+            <div class="select-wrapper">
+                <select id="filter-category" class="filter-select">
+                    <option value="all">All</option>
+                    <option value="led">LED</option>
+                    <option value="incandescent" selected>Incandescent</option>
+                    <option value="fluorescent">Fluorescent</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Filter Group: Brand -->
+        <div class="filter-group">
+            <label for="filter-brand" class="filter-label">Brand</label>
+            <div class="select-wrapper">
+                <select id="filter-brand" class="filter-select">
+                    <option value="all">Select Brand</option>
+                    <option value="brand-a">ElectroGlow</option>
+                    <option value="brand-b">Lumina</option>
+                    <option value="brand-c">Volt-Tech</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Filter Group: Price Range -->
+        <div class="filter-group">
+            <label for="filter-price" class="filter-label">Price Range</label>
+            <div class="price-range-labels">
+                <span>$10</span>
+                <span>$500</span>
+            </div>
+            <input type="range" id="filter-price" class="filter-range" min="10" max="500" value="255">
+        </div>
+
+        <!-- Filter Group: Stock Status -->
+        <div class="filter-group">
+            <div class="radio-group">
+                <input type="radio" id="in-stock" name="stock_status" value="in_stock" checked>
+                <label for="in-stock">In Stock</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="out-of-stock" name="stock_status" value="out_of_stock">
+                <label for="out-of-stock">Out of Stock</label>
+            </div>
+        </div>
+        
+        <!-- Action Button -->
+        <div class="filter-group">
+            <button type="submit" class="btn btn-primary apply-filters-btn">Apply Filters</button>
+        </div>
+    </form>
+</aside>
+
+            <!-- ====== MAIN CONTENT (PRODUCT GRID) - To be built next ====== -->
+            <section class="department-main-content">
+    <h1 class="department-title">Lighting</h1>
+    <div class="product-grid-wrapper">
+
+        <!-- ================== PRODUCT GRID ================== -->
+        <div class="department-product-grid">
+            <!-- Product 1 -->
+            <div class="d-product-card">
+                <a href="#product-link" class="d-product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1604106634333-5b57f5dba556?q=80&w=1974&auto=format&fit=crop" alt="A modern LED bulb">
+                </a>
+                <div class="d-product-content">
+                    <h3 class="d-product-title"><a href="#product-link">LED Bulb - 10W</a></h3>
+                    <p class="d-product-description">Energy-efficient LED bulb</p>
+                    <p class="d-product-price">$12.99</p>
+                </div>
+                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="d-product-card">
+                <a href="#product-link" class="d-product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1590425485906-8ea31c855a84?q=80&w=1974&auto=format&fit=crop" alt="A classic incandescent bulb">
+                </a>
+                <div class="d-product-content">
+                    <h3 class="d-product-title"><a href="#product-link">Incandescent Bulb - 60W</a></h3>
+                    <p class="d-product-description">Classic incandescent bulb</p>
+                    <p class="d-product-price">$4.99</p>
+                </div>
+                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="d-product-card">
+                <a href="#product-link" class="d-product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1569426959529-ef236b2a0468?q=80&w=1974&auto=format&fit=crop" alt="A long fluorescent tube light">
+                </a>
+                <div class="d-product-content">
+                    <h3 class="d-product-title"><a href="#product-link">Fluorescent Tube - 4ft</a></h3>
+                    <p class="d-product-description">Standard fluorescent tube</p>
+                    <p class="d-product-price">$19.50</p>
+                </div>
+                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="d-product-card">
+                <a href="#product-link" class="d-product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1617043783359-a5895a5a1f2f?q=80&w=1974&auto=format&fit=crop" alt="A color changing smart LED bulb">
+                </a>
+                <div class="d-product-content">
+                    <h3 class="d-product-title"><a href="#product-link">Smart LED Bulb - Color Changing</a></h3>
+                    <p class="d-product-description">Smart bulb with color control</p>
+                    <p class="d-product-price">$24.99</p>
+                </div>
+                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+            
+            <!-- ... Add more product cards as needed to fill the grid ... -->
+        </div>
+
+        <!-- ================== PAGINATION ================== -->
+        <nav aria-label="Pagination" class="pagination">
+            <a href="#" class="page-link prev" aria-label="Previous Page"><</a>
+            <a href="#" class="page-link current" aria-current="page">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">3</a>
+            <span class="page-link-ellipsis">...</span>
+            <a href="#" class="page-link">10</a>
+            <a href="#" class="page-link next" aria-label="Next Page">></a>
+        </nav>
+    </div>
+</section>
+
+        </div>
+    </div>
+  </main>
+
+
+ 
+
+</body>
+
+<!-- <script src="js/main.js" defer></script> -->
+
+</html>

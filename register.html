@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroHub - Your Electronic & Electrical Store</title>
+  <meta name="description" content="From smart lighting to solar solutions, find everything you need.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- JS (defer ensures it runs after HTML parsing) -->
+
+</head>
+
+<body>
+
+  <main id="main-content" class="site-main">
+
+     <!-- /register.html -->
+<div class="container auth-container">
+    <div class="auth-form-wrapper">
+        <h1 class="page-main-title">Create an Account</h1>
+        <p class="page-subtitle">Join us to get started with your shopping.</p>
+        
+        <form class="auth-form">
+            <div class="form-group">
+                <label for="register-name">Full Name</label>
+                <input type="text" id="register-name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email Address</label>
+                <input type="email" id="register-email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" placeholder="Create a strong password" required>
+            </div>
+            <div class="form-group">
+                <label for="register-confirm-password">Confirm Password</label>
+                <input type="password" id="register-confirm-password" placeholder="Confirm your password" required>
+            </div>
+            <div class="form-options">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms-agree" required>
+                    <label for="terms-agree">I agree to the <a href="#/terms" target="_blank">Terms & Conditions</a></label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary auth-btn">Create Account</button>
+        </form>
+        
+        <p class="auth-switch-prompt">
+            Already have an account? <a href="#/login">Sign In</a>
+        </p>
+    </div>
+</div>
+  </main>
+
+</body>
+
+</html>
