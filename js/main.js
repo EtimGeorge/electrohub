@@ -9,6 +9,7 @@
 function initializeMobileMenu() {
   const hamburgerToggle = document.getElementById("hamburger-menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
+  const header = document.querySelector(".site-header"); // Add this line
 
   if (
     hamburgerToggle &&
@@ -17,9 +18,38 @@ function initializeMobileMenu() {
   ) {
     hamburgerToggle.addEventListener("click", () => {
       mobileMenu.classList.toggle("is-active");
+      header.classList.toggle("mobile-menu-open"); // Add this line
+      const isExpanded = mobileMenu.classList.contains("is-active");
+      hamburgerToggle.setAttribute("aria-expanded", isExpanded);
     });
     hamburgerToggle.dataset.listenerAttached = "true";
   }
+}
+
+// ... (after initializeMobileMenu)
+function closeMobileMenu() {
+  const mobileMenu = document.getElementById("mobile-menu");
+  const header = document.querySelector(".site-header"); // Add this line
+  const hamburgerToggle = document.getElementById("hamburger-menu-toggle");
+  if (mobileMenu && mobileMenu.classList.contains("is-active")) {
+    mobileMenu.classList.remove("is-active");
+    header.classList.remove("mobile-menu-open"); // Add this line
+    if (hamburgerToggle) {
+      hamburgerToggle.setAttribute("aria-expanded", "false");
+    }
+  }
+}
+
+// ... (after closeMobileMenu)
+function updateActiveNavLinks(path) {
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav a");
+  mobileNavLinks.forEach((link) => {
+    link.classList.remove("active");
+    // Check if the link's href matches the current path
+    if (link.getAttribute("href") === `#${path}`) {
+      link.classList.add("active");
+    }
+  });
 }
 
 /**
@@ -71,30 +101,102 @@ document.addEventListener("DOMContentLoaded", () => {
     "/account": "account.html",
     "/contact": "contact.html",
     "/about": "about.html",
-     "/wires": "wires.html",
+    "/wires": "wires.html",
     "/switches": "switches.html",
     "/tools": "tools.html",
     "/accessories": "accessories.html",
     "/gadgets": "gadgets.html",
-    "/devices": "devices.html"
+    "/devices": "devices.html",
+    "/services": "services.html",
+    "/service-project-management": "service-project-management.html",
+    "/service-consultants": "service-consultants.html",
+    "/service-general-works": "service-general-works.html",
+    "/service-cctv-installation": "service-cctv-installation.html",
+    "/service-solar-panel-installation":
+      "service-solar-panel-installation.html",
+    "/service-solar-system-design": "service-solar-system-design.html",
   };
 
   // CORRECTED: Simulated product database with image placeholders restored
-const products = {
+  const products = {
     lighting: [
-        { id: 'lt001', name: 'Modern LED Chandelier', price: 199.99, subcategory: 'Chandeliers', brand: 'Lumina', type: 'LED', image: 'https://placehold.co/400x400/1F2937/34D399?text=Chandelier' },
-        { id: 'lt002', name: 'Vintage Edison Bulb', price: 12.99, subcategory: 'Bulbs', brand: 'Volt-Tech', type: 'Incandescent', image: 'https://placehold.co/400x400/1F2937/34D399?text=Edison+Bulb' },
-        { id: 'lt003', name: 'Recessed Downlight', price: 29.50, subcategory: 'Indoor Lighting', brand: 'ElectroGlow', type: 'LED', image: 'https://placehold.co/400x400/1F2937/34D399?text=Downlight' },
-        { id: 'lt004', name: 'Outdoor Wall Sconce', price: 79.00, subcategory: 'Outdoor Lighting', brand: 'Lumina', type: 'LED', image: 'https://placehold.co/400x400/1F2937/34D399?text=Sconce' },
-        { id: 'lt005', name: 'Smart RGB Bulb', price: 24.99, subcategory: 'Bulbs', brand: 'ElectroGlow', type: 'Smart', image: 'https://placehold.co/400x400/1F2937/34D399?text=Smart+Bulb' },
-        { id: 'lt006', name: 'Classic Pendant Light', price: 129.00, subcategory: 'Chandeliers', brand: 'Volt-Tech', type: 'Incandescent', image: 'https://placehold.co/400x400/1F2937/34D399?text=Pendant' }
+      {
+        id: "lt001",
+        name: "Modern LED Chandelier",
+        price: 199.99,
+        subcategory: "Chandeliers",
+        brand: "Lumina",
+        type: "LED",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Chandelier",
+      },
+      {
+        id: "lt002",
+        name: "Vintage Edison Bulb",
+        price: 12.99,
+        subcategory: "Bulbs",
+        brand: "Volt-Tech",
+        type: "Incandescent",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Edison+Bulb",
+      },
+      {
+        id: "lt003",
+        name: "Recessed Downlight",
+        price: 29.5,
+        subcategory: "Indoor Lighting",
+        brand: "ElectroGlow",
+        type: "LED",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Downlight",
+      },
+      {
+        id: "lt004",
+        name: "Outdoor Wall Sconce",
+        price: 79.0,
+        subcategory: "Outdoor Lighting",
+        brand: "Lumina",
+        type: "LED",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Sconce",
+      },
+      {
+        id: "lt005",
+        name: "Smart RGB Bulb",
+        price: 24.99,
+        subcategory: "Bulbs",
+        brand: "ElectroGlow",
+        type: "Smart",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Smart+Bulb",
+      },
+      {
+        id: "lt006",
+        name: "Classic Pendant Light",
+        price: 129.0,
+        subcategory: "Chandeliers",
+        brand: "Volt-Tech",
+        type: "Incandescent",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Pendant",
+      },
     ],
     wires: [
-        { id: 'wr001', name: '14-Gauge THHN Wire', price: 75.99, subcategory: 'Building Wire', brand: 'CableCo', type: 'Copper', image: 'https://placehold.co/400x400/1F2937/34D399?text=THHN+Wire' },
-        { id: 'wr002', name: 'Coaxial Cable RG6', price: 45.50, subcategory: 'Data Cable', brand: 'ConnectX', type: 'Coaxial', image: 'https://placehold.co/400x400/1F2937/34D399?text=RG6+Cable' }
+      {
+        id: "wr001",
+        name: "14-Gauge THHN Wire",
+        price: 75.99,
+        subcategory: "Building Wire",
+        brand: "CableCo",
+        type: "Copper",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=THHN+Wire",
+      },
+      {
+        id: "wr002",
+        name: "Coaxial Cable RG6",
+        price: 45.5,
+        subcategory: "Data Cable",
+        brand: "ConnectX",
+        type: "Coaxial",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=RG6+Cable",
+      },
     ],
     // ... add similar, complete data for switches, tools, etc.
-};
+  };
 
   const mainContentContainer = document.getElementById("main-content");
   const cartIcon = document.querySelector('a[href="#/cart"].header-icon');
@@ -110,11 +212,14 @@ const products = {
   const addToCartModalContent = document.getElementById(
     "add-to-cart-modal-content"
   );
-  // const modalCloseBtn = document.querySelector(".modal-close-btn"); // This is generic now
 
-// ADD these two new lines:
-const newsletterModalOverlay = document.getElementById('newsletter-modal-overlay');
-
+  const newsletterModalOverlay = document.getElementById(
+    "newsletter-modal-overlay"
+  );
+  const quoteModalOverlay = document.getElementById("quote-modal-overlay");
+  const consultationModalOverlay = document.getElementById(
+    "consultation-modal-overlay"
+  );
 
   // --- 2.2. STATE MANAGEMENT & UI UPDATES ---
   function saveUserToLocalStorage() {
@@ -177,23 +282,23 @@ const newsletterModalOverlay = document.getElementById('newsletter-modal-overlay
     const existingItem = state.cart.find((item) => item.id === product.id);
 
     // FIX: Clean the price string and convert it to a number
-    const numericPrice = parseFloat(product.price.replace('$', ''));
+    const numericPrice = parseFloat(product.price.replace("$", ""));
 
     const productToAdd = {
-        ...product,
-        price: numericPrice, // Store the price as a number
-        quantity: 1,
+      ...product,
+      price: numericPrice, // Store the price as a number
+      quantity: 1,
     };
 
     if (existingItem) {
-        existingItem.quantity++;
+      existingItem.quantity++;
     } else {
-        state.cart.push(productToAdd);
+      state.cart.push(productToAdd);
     }
     saveCartToLocalStorage();
     updateCartIcon();
     showAddToCartConfirmation(product);
-}
+  }
 
   // --- MODAL LOGIC ---
   /**
@@ -252,55 +357,75 @@ const newsletterModalOverlay = document.getElementById('newsletter-modal-overlay
   // --- 2.3. PAGE-SPECIFIC RENDERING FUNCTIONS ---
   function renderCartPage() {
     requestAnimationFrame(() => {
-        const itemsContainer = document.getElementById("cart-items-container");
-        const cartLayout = document.querySelector(".cart-layout");
-        const emptyCartContainer = document.getElementById("empty-cart-container");
+      const itemsContainer = document.getElementById("cart-items-container");
+      const cartLayout = document.querySelector(".cart-layout");
+      const emptyCartContainer = document.getElementById(
+        "empty-cart-container"
+      );
 
-        if (!itemsContainer || !cartLayout || !emptyCartContainer) return;
+      if (!itemsContainer || !cartLayout || !emptyCartContainer) return;
 
-        itemsContainer.innerHTML = "";
+      itemsContainer.innerHTML = "";
 
-        if (state.cart.length === 0) {
-            cartLayout.style.display = "none";
-            emptyCartContainer.style.display = "block";
-        } else {
-            cartLayout.style.display = "grid";
-            emptyCartContainer.style.display = "none";
+      if (state.cart.length === 0) {
+        cartLayout.style.display = "none";
+        emptyCartContainer.style.display = "block";
+      } else {
+        cartLayout.style.display = "grid";
+        emptyCartContainer.style.display = "none";
 
-            let subtotal = 0;
-            state.cart.forEach((item) => {
-                const itemEl = document.createElement("div");
-                itemEl.classList.add("cart-item");
-                const nameForImage = item.name ? item.name.split(" ")[0] : "Item";
-                itemEl.innerHTML = `
-                    <img src="https://placehold.co/100x100/1F2937/34D399?text=${nameForImage}" alt="${item.name || 'Unknown Item'}" class="cart-item-image">
+        let subtotal = 0;
+        state.cart.forEach((item) => {
+          const itemEl = document.createElement("div");
+          itemEl.classList.add("cart-item");
+          const nameForImage = item.name ? item.name.split(" ")[0] : "Item";
+          itemEl.innerHTML = `
+                    <img src="https://placehold.co/100x100/1F2937/34D399?text=${nameForImage}" alt="${
+            item.name || "Unknown Item"
+          }" class="cart-item-image">
                     <div class="cart-item-details">
-                        <h2 class="cart-item-title">${item.name || 'Unknown Item'}</h2>
+                        <h2 class="cart-item-title">${
+                          item.name || "Unknown Item"
+                        }</h2>
                         <p class="cart-item-model">Model: ${item.id}</p>
                     </div>
                     <div class="cart-item-quantity">
-                        <button class="quantity-btn" data-id="${item.id}" data-action="decrease" aria-label="Decrease quantity">-</button>
+                        <button class="quantity-btn" data-id="${
+                          item.id
+                        }" data-action="decrease" aria-label="Decrease quantity">-</button>
                         <span class="quantity-value">${item.quantity}</span>
-                        <button class="quantity-btn" data-id="${item.id}" data-action="increase" aria-label="Increase quantity">+</button>
+                        <button class="quantity-btn" data-id="${
+                          item.id
+                        }" data-action="increase" aria-label="Increase quantity">+</button>
                     </div>
-                    <p class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
+                    <p class="cart-item-price">$${(
+                      item.price * item.quantity
+                    ).toFixed(2)}</p>
                 `;
-                itemsContainer.appendChild(itemEl);
-                // FIX: Use parseFloat to ensure item.price is a number before calculation
-                subtotal += parseFloat(item.price) * item.quantity;
-            });
+          itemsContainer.appendChild(itemEl);
+          // FIX: Use parseFloat to ensure item.price is a number before calculation
+          subtotal += parseFloat(item.price) * item.quantity;
+        });
 
-            const shipping = subtotal > 0 ? state.shippingCost : 0;
-            const tax = (subtotal + shipping) * state.taxRate;
-            const total = subtotal + shipping + tax;
+        const shipping = subtotal > 0 ? state.shippingCost : 0;
+        const tax = (subtotal + shipping) * state.taxRate;
+        const total = subtotal + shipping + tax;
 
-            document.getElementById("summary-subtotal").textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById("summary-shipping").textContent = `$${shipping.toFixed(2)}`;
-            document.getElementById("summary-tax").textContent = `$${tax.toFixed(2)}`;
-            document.getElementById("summary-total").textContent = `$${total.toFixed(2)}`;
-        }
+        document.getElementById(
+          "summary-subtotal"
+        ).textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById(
+          "summary-shipping"
+        ).textContent = `$${shipping.toFixed(2)}`;
+        document.getElementById("summary-tax").textContent = `$${tax.toFixed(
+          2
+        )}`;
+        document.getElementById(
+          "summary-total"
+        ).textContent = `$${total.toFixed(2)}`;
+      }
     });
-}
+  }
 
   function renderCheckoutPage() {
     requestAnimationFrame(() => {
@@ -364,126 +489,196 @@ const newsletterModalOverlay = document.getElementById('newsletter-modal-overlay
     });
   }
 
- // NEW, ADVANCED version of this function with faceted filtering
-function renderDepartmentPage(departmentKey) {
+  // FINAL, CORRECTED version of the department page renderer
+  function renderDepartmentPage(departmentKey) {
     const fullProductList = products[departmentKey] || [];
     let activeFilters = {
-        subcategory: 'All',
-        brand: 'All',
-        type: 'All',
-        // Add other filter types here e.g., price
+      subcategory: "All",
+      brand: "All",
+      type: "All",
     };
 
-    const filterFormContainer = document.getElementById('dynamic-filter-form-container');
-    const subcategoryNavContainer = document.getElementById('subcategory-nav-container');
-    const productGridContainer = document.getElementById('product-grid-container');
+    // Correctly get the new container for the DYNAMIC parts of the form
+    const filterGroupsContainer = document.getElementById(
+      "dynamic-filter-groups-container"
+    );
+    const subcategoryNavContainer = document.getElementById(
+      "subcategory-nav-container"
+    );
+    const productGridContainer = document.getElementById(
+      "product-grid-container"
+    );
 
-    if (!filterFormContainer || !subcategoryNavContainer || !productGridContainer) return;
+    if (
+      !filterGroupsContainer ||
+      !subcategoryNavContainer ||
+      !productGridContainer
+    )
+      return;
 
-    // This is our main rendering function that runs anytime a filter changes
+    // The main rendering function
     function render() {
-        // 1. Filter the products based on the current 'activeFilters' state
-        let filteredProducts = fullProductList;
-        if (activeFilters.subcategory !== 'All') {
-            filteredProducts = filteredProducts.filter(p => p.subcategory === activeFilters.subcategory);
-        }
-        if (activeFilters.brand !== 'All') {
-            filteredProducts = filteredProducts.filter(p => p.brand === activeFilters.brand);
-        }
-        if (activeFilters.type !== 'All') {
-            filteredProducts = filteredProducts.filter(p => p.type === activeFilters.type);
-        }
+      // 1. Filter products based on the current state
+      let filteredProducts = fullProductList;
+      if (activeFilters.subcategory !== "All") {
+        filteredProducts = filteredProducts.filter(
+          (p) => p.subcategory === activeFilters.subcategory
+        );
+      }
+      if (activeFilters.brand !== "All") {
+        filteredProducts = filteredProducts.filter(
+          (p) => p.brand === activeFilters.brand
+        );
+      }
+      if (activeFilters.type !== "All") {
+        filteredProducts = filteredProducts.filter(
+          (p) => p.type === activeFilters.type
+        );
+      }
 
-        // 2. Re-render the dynamic sidebar with updated counts and options
-        renderSidebar(filteredProducts);
-
-        // 3. Re-render the product grid with the filtered results
-        renderProductGrid(filteredProducts);
+      // 2. Re-render the UI components
+      renderSubcategoryNav(fullProductList); // Render nav based on full list
+      renderSidebar(filteredProducts); // Render sidebar based on FILTERED list
+      renderProductGrid(filteredProducts); // Render grid based on FILTERED list
     }
-    
-    // Function to render just the sidebar
-    function renderSidebar(currentlyVisibleProducts) {
-        // Calculate available options FROM the currently visible products
-        const availableBrands = ['All', ...new Set(currentlyVisibleProducts.map(p => p.brand))];
-        const availableTypes = ['All', ...new Set(currentlyVisibleProducts.map(p => p.type))];
 
-        filterFormContainer.innerHTML = `
-            <form class="filter-form">
-                <div class="filter-group">
-                    <label for="filter-brand" class="filter-label">Brand</label>
-                    <div class="select-wrapper">
-                        <select id="filter-brand" class="filter-select" data-filter="brand">
-                            ${availableBrands.map(brand => `<option value="${brand}" ${activeFilters.brand === brand ? 'selected' : ''}>${brand}</option>`).join('')}
-                        </select>
-                    </div>
+    // Function to render the subcategory nav
+    function renderSubcategoryNav(productsForNav) {
+      const subcategories = [
+        "All",
+        ...new Set(productsForNav.map((p) => p.subcategory)),
+      ];
+      subcategoryNavContainer.innerHTML = subcategories
+        .map(
+          (sub) =>
+            // FIX: The 'active' class is now correctly applied based on the activeFilters state
+            `<a href="#" class="subcategory-link ${
+              activeFilters.subcategory === sub ? "active" : ""
+            }" data-subcategory="${sub}">${sub}</a>`
+        )
+        .join("");
+    }
+
+    // Function to render just the dynamic parts of the sidebar
+    function renderSidebar(currentlyVisibleProducts) {
+      const availableBrands = [
+        "All",
+        ...new Set(currentlyVisibleProducts.map((p) => p.brand)),
+      ];
+      const availableTypes = [
+        "All",
+        ...new Set(currentlyVisibleProducts.map((p) => p.type)),
+      ];
+
+      filterGroupsContainer.innerHTML = `
+            <div class="filter-group">
+                <label for="filter-brand" class="filter-label">Brand</label>
+                <div class="select-wrapper">
+                    <select id="filter-brand" class="filter-select" data-filter="brand">
+                        ${availableBrands
+                          .map(
+                            (brand) =>
+                              `<option value="${brand}" ${
+                                activeFilters.brand === brand ? "selected" : ""
+                              }>${brand}</option>`
+                          )
+                          .join("")}
+                    </select>
                 </div>
-                <div class="filter-group">
-                    <label for="filter-type" class="filter-label">Category</label>
-                    <div class="select-wrapper">
-                        <select id="filter-type" class="filter-select" data-filter="type">
-                            ${availableTypes.map(type => `<option value="${type}" ${activeFilters.type === type ? 'selected' : ''}>${type}</option>`).join('')}
-                        </select>
-                    </div>
+            </div>
+            <div class="filter-group">
+                <label for="filter-type" class="filter-label">Category</label>
+                <div class="select-wrapper">
+                    <select id="filter-type" class="filter-select" data-filter="type">
+                        ${availableTypes
+                          .map(
+                            (type) =>
+                              `<option value="${type}" ${
+                                activeFilters.type === type ? "selected" : ""
+                              }>${type}</option>`
+                          )
+                          .join("")}
+                    </select>
                 </div>
-                <!-- Add other filters like price range here -->
-            </form>
+            </div>
         `;
     }
 
     // This is a "helper" function that just renders the product cards
     function renderProductGrid(productsToRender) {
-        if (!productGridContainer) return;
-        if (productsToRender.length === 0) {
-            productGridContainer.innerHTML = '<p>No products found in this category.</p>';
-            return;
-        }
-        productGridContainer.innerHTML = productsToRender.map(product => `
+      if (!productGridContainer) return;
+      if (productsToRender.length === 0) {
+        productGridContainer.innerHTML =
+          "<p>No products found in this category.</p>";
+        return;
+      }
+      productGridContainer.innerHTML = productsToRender
+        .map(
+          (product) => `
             <div class="d-product-card">
-                <div class="d-product-image-wrapper"><img src="${product.image}" alt="${product.name}"></div>
+                <div class="d-product-image-wrapper"><img src="${
+                  product.image
+                }" alt="${product.name}"></div>
                 <div class="d-product-content">
-                    <h3 class="d-product-title"><a href="#/product?id=${product.id}">${product.name}</a></h3>
+                    <h3 class="d-product-title"><a href="#/product?id=${
+                      product.id
+                    }">${product.name}</a></h3>
                     <p class="d-product-description">${product.subcategory}</p>
                     <p class="d-product-price">$${product.price.toFixed(2)}</p>
                 </div>
                 <div class="d-product-actions">
-                     <button class="btn btn-secondary quick-view-btn" data-product-id="${product.id}">Quick View</button>
+                     <button class="btn btn-secondary quick-view-btn" data-product-id="${
+                       product.id
+                     }">Quick View</button>
                      <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
                 </div>
             </div>
-        `).join('');
+        `
+        )
+        .join("");
     }
 
     // Initial Setup
-    const subcategories = ['All', ...new Set(fullProductList.map(p => p.subcategory))];
-    subcategoryNavContainer.innerHTML = subcategories.map(sub => 
-        `<a href="#" class="subcategory-link active" data-subcategory="${sub}">${sub}</a>`
-    ).join('');
-    
+    const subcategories = [
+      "All",
+      ...new Set(fullProductList.map((p) => p.subcategory)),
+    ];
+    subcategoryNavContainer.innerHTML = subcategories
+      .map(
+        (sub) =>
+          `<a href="#" class="subcategory-link active" data-subcategory="${sub}">${sub}</a>`
+      )
+      .join("");
+
     // Initial render of everything
     render();
 
-    // Event Listeners
-    subcategoryNavContainer.addEventListener('click', (e) => {
-        if (e.target.matches('.subcategory-link')) {
-            e.preventDefault();
-            activeFilters.subcategory = e.target.dataset.subcategory;
-            // When subcategory changes, reset other filters to 'All'
-            activeFilters.brand = 'All';
-            activeFilters.type = 'All';
-            render(); // Re-render everything
-        }
+    // Event Listeners (now attached to the containers)
+    subcategoryNavContainer.addEventListener("click", (e) => {
+      if (e.target.matches(".subcategory-link")) {
+        e.preventDefault();
+        activeFilters.subcategory = e.target.dataset.subcategory;
+        // Reset dependent filters
+        activeFilters.brand = "All";
+        activeFilters.type = "All";
+        render();
+      }
     });
 
-    filterFormContainer.addEventListener('change', (e) => {
-        if (e.target.matches('.filter-select')) {
-            const filterKey = e.target.dataset.filter;
-            const value = e.target.value;
-            activeFilters[filterKey] = value;
-            render(); // Re-render everything
+    // Attach listener to the FORM, not the container, for better event handling
+    const filterForm = document.getElementById("filter-form");
+    if (filterForm) {
+      filterForm.addEventListener("change", (e) => {
+        if (e.target.matches(".filter-select")) {
+          const filterKey = e.target.dataset.filter;
+          activeFilters[filterKey] = e.target.value;
+          render();
         }
-    });
-}
-
+      });
+      // Prevent form from actually submitting
+      filterForm.addEventListener("submit", (e) => e.preventDefault());
+    }
+  }
 
   // --- 2.4. PAGE INITIALIZATION FUNCTIONS (Called after new content is loaded) ---
   function initializePageScripts(path) {
@@ -497,10 +692,10 @@ function renderDepartmentPage(departmentKey) {
       } else if (path === "/account") {
         renderAccountPage();
       }
-       const departmentKey = path.replace('/', ''); // Turns '/lighting' into 'lighting'
-        if (products.hasOwnProperty(departmentKey)) {
-            renderDepartmentPage(departmentKey);
-        }
+      const departmentKey = path.replace("/", ""); // Turns '/lighting' into 'lighting'
+      if (products.hasOwnProperty(departmentKey)) {
+        renderDepartmentPage(departmentKey);
+      }
     });
   }
 
@@ -508,8 +703,15 @@ function renderDepartmentPage(departmentKey) {
   async function handleRouteChange() {
     closeModal(quickViewModalOverlay);
     closeModal(addToCartModalOverlay);
+    closeModal(newsletterModalOverlay);
+    closeModal(quoteModalOverlay);
+    closeModal(consultationModalOverlay);
+
+    // NEW: Close the mobile menu on any navigation
+    closeMobileMenu();
 
     const path = location.hash.slice(1) || "/";
+    updateActiveNavLinks(path);
 
     if (path.startsWith("/account") && !state.currentUser) {
       location.hash = "/login";
@@ -545,7 +747,7 @@ function renderDepartmentPage(departmentKey) {
       setTimeout(() => {
         initializePageScripts(path);
       }, 0);
-      
+
       window.scrollTo(0, 0);
     } catch (error) {
       console.error("Error loading page:", error);
@@ -595,7 +797,7 @@ function renderDepartmentPage(departmentKey) {
     return isValid;
   }
 
-  // --- 2.7. GLOBAL EVENT LISTENERS --- 
+  // --- 2.7. GLOBAL EVENT LISTENERS ---
   // This listener delegates actions for the main content area
   mainContentContainer.addEventListener("click", (event) => {
     const target = event.target;
@@ -717,7 +919,7 @@ function renderDepartmentPage(departmentKey) {
     }
   });
 
-    // =============================================================
+  // =============================================================
   // This is the universal click listener for the entire document
   // It handles actions for elements that might be outside the dynamic <main> area,
   // primarily for opening and closing ALL modals.
@@ -751,6 +953,16 @@ function renderDepartmentPage(departmentKey) {
     // Case 3: The user clicked the "Continue Shopping" button (specific to one modal)
     if (target.matches(".continue-shopping-btn")) {
       closeModal(addToCartModalOverlay);
+    }
+
+    // ADD this new logic for opening the Quote and Consultation modals
+    if (target.matches("#open-quote-modal-btn")) {
+      event.preventDefault(); // Prevent hash from being added to URL
+      openModal(quoteModalOverlay);
+    }
+    if (target.matches("#open-consultation-modal-btn")) {
+      event.preventDefault(); // Prevent hash from being added to URL
+      openModal(consultationModalOverlay);
     }
   });
 

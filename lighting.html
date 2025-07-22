@@ -16,10 +16,18 @@
             <!-- ====== SIDEBAR (FILTERS) - To be built next ====== -->
             <aside class="department-sidebar">
                 <h2 class="sidebar-title">Filters</h2>
+                <div id="dynamic-filter-form-container">
+        <!-- The entire filter form will be rendered here by JavaScript -->
+    </div>
 
     <form class="filter-form">
+
+         <div id="dynamic-filter-groups-container">
+            <!-- Dynamic filter groups (Brand, Category, etc.) will be rendered here -->
+        </div>
+
         <!-- Filter Group: Category -->
-        <div class="filter-group">
+        <!-- <div class="filter-group">
             <label for="filter-category" class="filter-label">Category</label>
             <div class="select-wrapper">
                 <select id="filter-category" class="filter-select">
@@ -29,10 +37,10 @@
                     <option value="fluorescent">Fluorescent</option>
                 </select>
             </div>
-        </div>
+        </div> -->
 
         <!-- Filter Group: Brand -->
-        <div class="filter-group">
+        <!-- <div class="filter-group">
             <label for="filter-brand" class="filter-label">Brand</label>
             <div class="select-wrapper">
                 <select id="filter-brand" class="filter-select">
@@ -42,7 +50,7 @@
                     <option value="brand-c">Volt-Tech</option>
                 </select>
             </div>
-        </div>
+        </div> -->
 
         <!-- Filter Group: Price Range -->
         <div class="filter-group">
@@ -68,7 +76,7 @@
         
         <!-- Action Button -->
         <div class="filter-group">
-            <button type="submit" class="btn btn-primary apply-filters-btn">Apply Filters</button>
+           <button type="submit" class="btn btn-primary apply-filters-btn" style="width:100%; margin-top: 1rem;">Apply Filters</button>
         </div>
     </form>
     <!-- CORRECTED: A single container for our dynamic form -->
