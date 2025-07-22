@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- 2.1. GLOBAL STATE & ROUTE DEFINITIONS ---
   const state = {
     cart: JSON.parse(localStorage.getItem("electroHubCart")) || [],
+    wishlist: JSON.parse(localStorage.getItem("electroHubWishlist")) || [],
     currentUser: JSON.parse(localStorage.getItem("electroHubUser")) || null,
     shippingCost: 15.0,
     taxRate: 0.075,
@@ -107,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "/accessories": "accessories.html",
     "/gadgets": "gadgets.html",
     "/devices": "devices.html",
+    "/wishlist": "wishlist.html",
     "/services": "services.html",
     "/service-project-management": "service-project-management.html",
     "/service-consultants": "service-consultants.html",
@@ -175,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         image: "https://placehold.co/400x400/1F2937/34D399?text=Pendant",
       },
     ],
+
     wires: [
       {
         id: "wr001",
@@ -194,33 +197,245 @@ document.addEventListener("DOMContentLoaded", () => {
         type: "Coaxial",
         image: "https://placehold.co/400x400/1F2937/34D399?text=RG6+Cable",
       },
+      {
+        id: "wr001",
+        name: "14-Gauge THHN Wire",
+        price: 75.99,
+        subcategory: "Building Wire",
+        brand: "CableCo",
+        type: "Copper",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=THHN+Wire",
+      },
+      {
+        id: "wr002",
+        name: "Coaxial Cable RG6",
+        price: 45.5,
+        subcategory: "Data Cable",
+        brand: "ConnectX",
+        type: "Coaxial",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=RG6+Cable",
+      },
+      {
+        id: "wr003",
+        name: "12-Gauge Romex Wire",
+        price: 120.0,
+        subcategory: "Building Wire",
+        brand: "CableCo",
+        type: "Copper",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Romex",
+      },
+      {
+        id: "wr004",
+        name: "Cat 6 Ethernet Cable",
+        price: 55.0,
+        subcategory: "Data Cable",
+        brand: "ConnectX",
+        type: "Ethernet",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Cat+6",
+      },
+    ],
+
+    switches: [
+      {
+        id: "sw001",
+        name: "Smart Wi-Fi Light Switch",
+        price: 34.99,
+        subcategory: "Smart Switches",
+        brand: "ConnectX",
+        type: "Smart",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Smart+Switch",
+      },
+      {
+        id: "sw002",
+        name: "GFCI Outlet Socket",
+        price: 19.99,
+        subcategory: "Standard Sockets",
+        brand: "Volt-Tech",
+        type: "GFCI",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=GFCI+Socket",
+      },
+      {
+        id: "sw003",
+        name: "Rotary Dimmer Switch",
+        price: 22.5,
+        subcategory: "Dimmers",
+        brand: "Lumina",
+        type: "Dimmer",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Dimmer",
+      },
+      {
+        id: "sw004",
+        name: "Decora Wall Plate",
+        price: 8.99,
+        subcategory: "Standard Sockets",
+        brand: "Volt-Tech",
+        type: "Accessory",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Wall+Plate",
+      },
+      {
+        id: "sw005",
+        name: "Voice-Activated Dimmer",
+        price: 49.99,
+        subcategory: "Dimmers",
+        brand: "ConnectX",
+        type: "Smart",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Smart+Dimmer",
+      },
+    ],
+
+    tools: [
+      {
+        id: "tl001",
+        name: "Digital Multimeter",
+        price: 59.99,
+        subcategory: "Testers",
+        brand: "Volt-Tech",
+        type: "Diagnostic",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Multimeter",
+      },
+      {
+        id: "tl002",
+        name: "Insulated Screwdriver Set",
+        price: 45.0,
+        subcategory: "Hand Tools",
+        brand: "DuraGrip",
+        type: "Insulated",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Screwdrivers",
+      },
+      {
+        id: "tl003",
+        name: "Cordless Impact Drill",
+        price: 189.99,
+        subcategory: "Power Tools",
+        brand: "MegaVolt",
+        type: "Cordless",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Drill",
+      },
+      {
+        id: "tl004",
+        name: "Wire Stripper & Cutter",
+        price: 24.5,
+        subcategory: "Hand Tools",
+        brand: "DuraGrip",
+        type: "Manual",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Stripper",
+      },
+      {
+        id: "tl005",
+        name: "Circuit Breaker Finder",
+        price: 39.99,
+        subcategory: "Testers",
+        brand: "Volt-Tech",
+        type: "Diagnostic",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Breaker+Finder",
+      },
+    ],
+
+    accessories: [
+      {
+        id: "ac001",
+        name: "Junction Box",
+        price: 9.99,
+        subcategory: "Enclosures",
+        brand: "Volt-Tech",
+        type: "PVC",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Junction+Box",
+      },
+      {
+        id: "ac002",
+        name: "Wago Connectors (100-pack)",
+        price: 29.99,
+        subcategory: "Connectors",
+        brand: "ConnectX",
+        type: "Lever-nut",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Connectors",
+      },
+    ],
+
+    gadgets: [
+      {
+        id: "gd001",
+        name: "USB Wall Outlet Charger",
+        price: 18.5,
+        subcategory: "Chargers",
+        brand: "MegaVolt",
+        type: "USB-C",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=USB+Charger",
+      },
+      {
+        id: "gd002",
+        name: "Smart Power Monitoring Plug",
+        price: 25.0,
+        subcategory: "Smart Plugs",
+        brand: "ConnectX",
+        type: "Wi-Fi",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Smart+Plug",
+      },
+      {
+        id: "gd003",
+        name: "Wireless Charging Pad",
+        price: 14.99,
+        subcategory: "Chargers",
+        brand: "MegaVolt",
+        type: "Wireless",
+        image:
+          "https://placehold.co/400x400/1F2937/34D399?text=Wireless+Charger",
+      },
+    ],
+
+    devices: [
+      {
+        id: "dv001",
+        name: "Video Doorbell",
+        price: 179.0,
+        subcategory: "Security",
+        brand: "ConnectX",
+        type: "Smart",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Doorbell",
+      },
+      {
+        id: "dv002",
+        name: "Smart Thermostat",
+        price: 249.0,
+        subcategory: "Home Automation",
+        brand: "ElectroGlow",
+        type: "Smart",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Thermostat",
+      },
+      {
+        id: "dv003",
+        name: "Smart Smoke Detector",
+        price: 59.99,
+        subcategory: "Safety",
+        brand: "Volt-Tech",
+        type: "Smart",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Smoke+Detector",
+      },
+      {
+        id: "dv004",
+        name: "Smart Home Hub",
+        price: 99.99,
+        subcategory: "Home Automation",
+        brand: "ConnectX",
+        type: "Hub",
+        image: "https://placehold.co/400x400/1F2937/34D399?text=Home+Hub",
+      },
     ],
     // ... add similar, complete data for switches, tools, etc.
   };
 
   const mainContentContainer = document.getElementById("main-content");
   const cartIcon = document.querySelector('a[href="#/cart"].header-icon');
-  const quickViewModalOverlay = document.getElementById(
-    "quick-view-modal-overlay"
+  const wishlistIcon = document.querySelector(
+    'a[href="#/wishlist"].header-icon'
   );
-  const quickViewModalContent = document.getElementById(
-    "quick-view-modal-content"
-  );
-  const addToCartModalOverlay = document.getElementById(
-    "add-to-cart-modal-overlay"
-  );
-  const addToCartModalContent = document.getElementById(
-    "add-to-cart-modal-content"
-  );
-
-  const newsletterModalOverlay = document.getElementById(
-    "newsletter-modal-overlay"
-  );
-  const quoteModalOverlay = document.getElementById("quote-modal-overlay");
-  const consultationModalOverlay = document.getElementById(
-    "consultation-modal-overlay"
-  );
-
+  const quickViewModalOverlay = document.getElementById('quick-view-modal-overlay');
+  const quickViewModalContent = document.getElementById('quick-view-modal-content');
+  const addToCartModalOverlay = document.getElementById('add-to-cart-modal-overlay');
+  const addToCartModalContent = document.getElementById('add-to-cart-modal-content');
+  const newsletterModalOverlay = document.getElementById('newsletter-modal-overlay');
+  const quoteModalOverlay = document.getElementById('quote-modal-overlay');
+  const consultationModalOverlay = document.getElementById('consultation-modal-overlay');
   // --- 2.2. STATE MANAGEMENT & UI UPDATES ---
   function saveUserToLocalStorage() {
     if (state.currentUser) {
@@ -298,6 +513,38 @@ document.addEventListener("DOMContentLoaded", () => {
     saveCartToLocalStorage();
     updateCartIcon();
     showAddToCartConfirmation(product);
+  }
+
+  // Wishlist functions
+  function saveWishlistToLocalStorage() {
+    localStorage.setItem("electroHubWishlist", JSON.stringify(state.wishlist));
+  }
+
+  function updateWishlistIcon() {
+    if (!wishlistIcon) return;
+    const wishlistItemCount = state.wishlist.length;
+    let bubble = wishlistIcon.querySelector(".wishlist-count-bubble");
+
+    if (wishlistItemCount > 0) {
+      if (!bubble) {
+        bubble = document.createElement("span");
+        // Use the same class as the cart bubble but add a modifier
+        bubble.className = "cart-count-bubble wishlist-count-bubble";
+        wishlistIcon.appendChild(bubble);
+      }
+      bubble.textContent = wishlistItemCount;
+    } else if (bubble) {
+      bubble.remove();
+    }
+  }
+
+  function addToWishlist(product) {
+    // Prevent duplicates
+    if (!state.wishlist.some((item) => item.id === product.id)) {
+      state.wishlist.push(product);
+      saveWishlistToLocalStorage();
+      updateWishlistIcon();
+    }
   }
 
   // --- MODAL LOGIC ---
@@ -425,6 +672,47 @@ document.addEventListener("DOMContentLoaded", () => {
         ).textContent = `$${total.toFixed(2)}`;
       }
     });
+  }
+
+  // ADD this new function:
+  function renderWishlistPage() {
+    const gridContainer = document.getElementById("wishlist-grid-container");
+    const emptyContainer = document.getElementById("empty-wishlist-container");
+    if (!gridContainer || !emptyContainer) return;
+
+    if (state.wishlist.length === 0) {
+      gridContainer.style.display = "none";
+      emptyContainer.style.display = "block";
+    } else {
+      gridContainer.style.display = "grid";
+      emptyContainer.style.display = "none";
+      gridContainer.innerHTML = state.wishlist
+        .map(
+          (product) => `
+            <div class="d-product-card">
+                <div class="d-product-image-wrapper"><img src="${
+                  product.image
+                }" alt="${product.name}"></div>
+                <div class="d-product-content">
+                    <h3 class="d-product-title"><a href="#/product?id=${
+                      product.id
+                    }">${product.name}</a></h3>
+                    <p class="d-product-description">${product.subcategory}</p>
+                    <p class="d-product-price">$${product.price.toFixed(2)}</p>
+                </div>
+                <div class="d-product-actions">
+                     <button class="btn btn-secondary add-wishlist-to-cart-btn" data-product-id="${
+                       product.id
+                     }">Move to Cart</button>
+                     <button class="btn btn-primary remove-from-wishlist-btn" data-product-id="${
+                       product.id
+                     }">Remove</button>
+                </div>
+            </div>
+        `
+        )
+        .join("");
+    }
   }
 
   function renderCheckoutPage() {
@@ -616,6 +904,11 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(
           (product) => `
             <div class="d-product-card">
+            <button class="wishlist-btn" data-product-id="${
+              product.id
+            }" aria-label="Add to Wishlist">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
                 <div class="d-product-image-wrapper"><img src="${
                   product.image
                 }" alt="${product.name}"></div>
@@ -691,6 +984,8 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCheckoutPage();
       } else if (path === "/account") {
         renderAccountPage();
+      } else if (path === "/wishlist") {
+        renderWishlistPage();
       }
       const departmentKey = path.replace("/", ""); // Turns '/lighting' into 'lighting'
       if (products.hasOwnProperty(departmentKey)) {
@@ -797,77 +1092,92 @@ document.addEventListener("DOMContentLoaded", () => {
     return isValid;
   }
 
-  // --- 2.7. GLOBAL EVENT LISTENERS ---
-  // This listener delegates actions for the main content area
+    // =============================================================
+  // --- 2.7. GLOBAL EVENT LISTENERS (FINAL, COMPLETE VERSION) ---
+  // =============================================================
+
+  // This listener delegates actions for anything CLICKED INSIDE the DYNAMIC <main> content area
   mainContentContainer.addEventListener("click", (event) => {
     const target = event.target;
 
-    // Quick View Button Logic
-    const quickViewBtn = event.target.closest(".quick-view-btn");
+    // --- LOGIC for Quick View Buttons ---
+    const quickViewBtn = target.closest('.quick-view-btn');
     if (quickViewBtn) {
-      event.preventDefault();
-      const productId = quickViewBtn.dataset.productId;
+        event.preventDefault();
+        const productId = quickViewBtn.dataset.productId;
+        
+        // Find the full product data from our global 'products' object
+        let productData = null;
+        for (const category in products) {
+            const found = products[category].find(p => p.id === productId);
+            if (found) {
+                productData = found;
+                break;
+            }
+        }
 
-      // Simulate fetching product data
-      const productData = {
-        name: "Dynamic LED Bulb",
-        price: "$14.99",
-        description:
-          "This is a dynamically loaded description for the product. It features excellent brightness and energy efficiency.",
-        image:
-          "https://images.unsplash.com/photo-1604106634333-5b57f5dba556?q=80&w=1974&auto=format&fit=crop",
-      };
-
-      // Populate and open the modal
-      quickViewModalContent.innerHTML = `
-            <div class="pdp-layout" style="gap: 2rem;">
-                <div class="pdp-gallery">
-                    <div class="gallery-featured-image">
-                        <img src="${productData.image}" alt="${productData.name}">
+        // If we found the product, populate the modal and open it
+        if (productData) {
+            quickViewModalContent.innerHTML = `
+                <div class="pdp-layout" style="gap: 2rem;">
+                    <div class="pdp-gallery"><div class="gallery-featured-image"><img src="${productData.image}" alt="${productData.name}"></div></div>
+                    <div class="pdp-info">
+                        <h1 class="pdp-title">${productData.name}</h1>
+                        <p class="pdp-description">This is a brief overview. For full details, please view the complete product page.</p>
+                        <div class="pdp-purchase-area" style="margin-top: 1rem;">
+                            <p class="pdp-price">$${productData.price.toFixed(2)}</p>
+                            <a href="#/product?id=${productData.id}" class="btn btn-secondary">View Full Details</a>
+                        </div>
                     </div>
-                </div>
-                <div class="pdp-info">
-                    <h1 class="pdp-title">${productData.name}</h1>
-                    <p class="pdp-description">${productData.description}</p>
-                    <div class="pdp-purchase-area" style="margin-top: 1rem;">
-                        <p class="pdp-price">${productData.price}</p>
-                        <a href="#/product" class="btn btn-secondary">View Full Details</a>
-                    </div>
-                </div>
-            </div>
-        `;
-      openModal(quickViewModalOverlay);
+                </div>`;
+            openModal(quickViewModalOverlay);
+        }
     }
 
-    // Add to cart buttons
-    if (target.closest(".add-to-cart-btn, .add-to-cart-pdp-btn")) {
+    // --- LOGIC for Wishlist Buttons ---
+    const wishlistBtn = target.closest('.wishlist-btn');
+    if (wishlistBtn) {
       event.preventDefault();
-      // Extract product data from the card itself
+      const productId = wishlistBtn.dataset.productId;
+      const departmentKey = location.hash.slice(1).split("?")[0].replace("/", "");
+      const product = products[departmentKey]?.find((p) => p.id === productId);
+      if (product) {
+        addToWishlist(product);
+        wishlistBtn.classList.add("active");
+      }
+    }
+
+    const removeFromWishlistBtn = target.closest(".remove-from-wishlist-btn");
+    if (removeFromWishlistBtn) {
+      event.preventDefault();
+      const productId = removeFromWishlistBtn.dataset.productId;
+      state.wishlist = state.wishlist.filter((item) => item.id !== productId);
+      saveWishlistToLocalStorage();
+      updateWishlistIcon();
+      renderWishlistPage();
+    }
+
+    // --- LOGIC for Add to Cart Buttons ---
+    const addToCartBtn = target.closest(".add-to-cart-btn, .add-to-cart-pdp-btn");
+    if (addToCartBtn) {
+      event.preventDefault();
       const card = target.closest(".d-product-card, .pdp-info");
       if (card) {
         const productData = {
-          id:
-            card.querySelector(".d-product-title a")?.href ||
-            window.location.hash,
-          name: card
-            .querySelector(".d-product-title, .pdp-title")
-            ?.textContent.trim(),
-          price: card
-            .querySelector(".d-product-price, .pdp-price")
-            ?.textContent.trim(),
-          image:
-            card.closest(".d-product-card")?.querySelector("img")?.src ||
-            document.getElementById("main-product-image")?.src,
+          id: card.querySelector(".d-product-title a")?.href || window.location.hash,
+          name: card.querySelector(".d-product-title, .pdp-title")?.textContent.trim(),
+          price: card.querySelector(".d-product-price, .pdp-price")?.textContent.trim(),
+          image: card.closest(".d-product-card")?.querySelector("img")?.src || document.getElementById("main-product-image")?.src,
         };
         addToCart(productData);
       }
     }
 
-    // Cart quantity buttons
+    // --- LOGIC for Cart Quantity Buttons ---
     if (target.matches(".quantity-btn")) {
-      const productId = parseFloat(target.dataset.id);
+      const productId = target.dataset.id;
       const action = target.dataset.action;
-      const itemInCart = state.cart.find((item) => item.id === productId);
+      const itemInCart = state.cart.find((item) => item.id == productId);
 
       if (itemInCart) {
         if (action === "increase") {
@@ -875,7 +1185,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (action === "decrease") {
           itemInCart.quantity--;
           if (itemInCart.quantity <= 0) {
-            state.cart = state.cart.filter((item) => item.id !== productId);
+            state.cart = state.cart.filter((item) => item.id != productId);
           }
         }
         saveCartToLocalStorage();
@@ -885,33 +1195,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // This listener handles form submissions for login and registration
+  // =============================================================
+  // This listener handles form submissions INSIDE the DYNAMIC <main> content area
+  // =============================================================
   mainContentContainer.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    // Login Form
+    // Login Form Submission
     if (event.target.matches('.auth-form[action="#/login"]')) {
       if (validateForm(event.target)) {
         const email = event.target.querySelector("#login-email").value;
-        state.currentUser = {
-          name: "Test User",
-          email: email,
-        };
+        state.currentUser = { name: "Test User", email: email };
         saveUserToLocalStorage();
         updateUserHeader();
         location.hash = "#/account";
       }
     }
 
-    // Registration Form
+    // Registration Form Submission
     if (event.target.matches('.auth-form[action="#/register"]')) {
       if (validateForm(event.target)) {
         const name = event.target.querySelector("#register-name").value;
         const email = event.target.querySelector("#register-email").value;
-        state.currentUser = {
-          name: name,
-          email: email,
-        };
+        state.currentUser = { name: name, email: email };
         saveUserToLocalStorage();
         updateUserHeader();
         location.hash = "#/account";
@@ -920,49 +1226,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // =============================================================
-  // This is the universal click listener for the entire document
-  // It handles actions for elements that might be outside the dynamic <main> area,
-  // primarily for opening and closing ALL modals.
+  // This is the universal click listener for STATIC elements OUTSIDE of <main>
+  // (Header buttons, modal backgrounds, modal close buttons, footer, etc.)
   // =============================================================
   document.body.addEventListener("click", (event) => {
     const target = event.target;
 
-    // --- LOGIC FOR OPENING MODALS ---
-
-    // Handle "Subscribe" button in the footer to open the Newsletter modal
+    // --- LOGIC FOR OPENING MODALS FROM STATIC BUTTONS ---
     if (target.matches("#open-newsletter-btn")) {
       openModal(newsletterModalOverlay);
     }
-
-    // --- LOGIC FOR CLOSING MODALS ---
-
-    // Case 1: The user clicked the dark background overlay of ANY modal
-    if (target.classList.contains("modal-overlay")) {
-      // The `target` is the overlay itself, so we can close it directly.
-      closeModal(target);
-    }
-
-    // Case 2: The user clicked a close button (the '×') inside ANY modal
-    const closeButton = target.closest(".modal-close-btn");
-    if (closeButton) {
-      // Find the specific modal overlay that this button belongs to and close it.
-      const modalToClose = target.closest(".modal-overlay");
-      closeModal(modalToClose);
-    }
-
-    // Case 3: The user clicked the "Continue Shopping" button (specific to one modal)
-    if (target.matches(".continue-shopping-btn")) {
-      closeModal(addToCartModalOverlay);
-    }
-
-    // ADD this new logic for opening the Quote and Consultation modals
     if (target.matches("#open-quote-modal-btn")) {
-      event.preventDefault(); // Prevent hash from being added to URL
+      event.preventDefault();
       openModal(quoteModalOverlay);
     }
     if (target.matches("#open-consultation-modal-btn")) {
-      event.preventDefault(); // Prevent hash from being added to URL
+      event.preventDefault();
       openModal(consultationModalOverlay);
+    }
+
+    // --- LOGIC FOR CLOSING ANY MODAL ---
+    const closeButton = target.closest(".modal-close-btn");
+    const isOverlay = target.classList.contains("modal-overlay");
+    if (closeButton || isOverlay) {
+      const modalToClose = target.closest(".modal-overlay");
+      if (modalToClose) {
+        closeModal(modalToClose);
+      }
+    }
+
+    // Special case for "Continue Shopping" button
+    if (target.matches(".continue-shopping-btn")) {
+      closeModal(addToCartModalOverlay);
     }
   });
 
@@ -970,6 +1265,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("hashchange", handleRouteChange);
   initializeMobileMenu();
   updateCartIcon();
+  updateWishlistIcon();
   updateUserHeader();
   handleRouteChange();
 });

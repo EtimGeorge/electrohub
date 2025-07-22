@@ -441,7 +441,6 @@ ul {
   z-index: 1100;
   width: 58px; /* Fixed width for alignment */
   height: 58px; /* Fixed height for alignment */
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
@@ -538,7 +537,7 @@ ul {
     display: none;
   }
   .hamburger-icon {
-    display: flex;
+    display: flex; /* Show hamburger icon on mobile */
   }
 
   .header-right {
@@ -2610,4 +2609,114 @@ ul {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+}
+
+/* ... (all previous styles remain the same) ... */
+
+/* ================== AESTHETIC DEPARTMENT STYLES ================== */
+
+/* Generic Department Hero - can be reused */
+.department-hero {
+    position: relative;
+    padding: 5rem 0;
+    margin-bottom: 4rem;
+    background-size: cover;
+    background-position: center;
+    color: var(--color-text-primary);
+    animation: fadeIn 1s ease-in-out;
+}
+.department-hero .hero-overlay {
+    background: linear-gradient(90deg, rgba(17, 24, 39, 0.85) 0%, rgba(17, 24, 39, 0.6) 100%);
+}
+.department-hero h1, .department-hero p {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+.department-hero h1 {
+    font-size: 3.5rem;
+}
+.department-hero p {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin-top: 1rem;
+}
+
+/* Specific Hero for Wires & Cables */
+.wires-hero {
+    background-image: url('https://images.unsplash.com/photo-1594039939512-3c83a33a41a4?q=80&w=1974&auto=format&fit=crop');
+}
+
+.switches-hero {
+    background-image: url('https://images.unsplash.com/photo-1617802119124-9556c87f4335?q=80&w=2070&auto=format&fit=crop');
+    background-position: center 30%; /* Adjust position to focus on the switch */
+}
+
+.tools-hero {
+    /* Corrected, reliable image link from Pexels */
+    background-image: url('https://images.pexels.com/photos/8005396/pexels-photo-8005396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+}
+
+.accessories-hero {
+    background-image: url('https://images.pexels.com/photos/6624021/pexels-photo-6624021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+}
+
+.gadgets-hero {
+    background-image: url('https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-position: center 70%;
+}
+
+.devices-hero {
+    background-image: url('https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+}
+
+/* Simple fade-in animation for pages */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+/* ================== WISHLIST STYLES ================== */
+.wishlist-count-bubble {
+    background-color: #3B82F6; /* Blue for wishlist */
+}
+
+.d-product-card {
+    position: relative; /* Needed for wishlist button positioning */
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background-color: rgba(31, 41, 55, 0.6);
+    border: 1px solid var(--color-dark-surface);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.wishlist-btn svg {
+    color: var(--color-text-primary);
+    transition: all 0.2s ease;
+}
+.wishlist-btn:hover {
+    background-color: var(--color-primary);
+}
+.wishlist-btn:hover svg {
+    color: var(--color-dark-bg);
+}
+
+/* Style for when an item is already in the wishlist */
+.wishlist-btn.active svg {
+    fill: #EF4444; /* Red fill */
+    color: #EF4444;
 }

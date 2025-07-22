@@ -1,29 +1,28 @@
+<div class="container">
 
-    <div class="container">
-        
-        <!-- ================== BREADCRUMBS ================== -->
-        <nav aria-label="Breadcrumb" class="breadcrumbs">
-            <ol>
-                <li><a href="#/">Home</a></li>
-                <li><a href="#/departments">Products</a></li>
-                <li><span aria-current="page">Lighting</span></li>
-            </ol>
-        </nav>
+  <!-- ================== BREADCRUMBS ================== -->
+  <nav aria-label="Breadcrumb" class="breadcrumbs">
+    <ol>
+      <li><a href="#/">Home</a></li>
+      <li><a href="#/departments">Products</a></li>
+      <li><span aria-current="page">Lighting</span></li>
+    </ol>
+  </nav>
 
-        <!-- ================== DEPARTMENT PAGE LAYOUT ================== -->
-        <div class="department-page-layout">
-            
-            <!-- ====== SIDEBAR (FILTERS) - To be built next ====== -->
-            <aside class="department-sidebar">
-                <h2 class="sidebar-title">Filters</h2>
-                <div id="dynamic-filter-form-container">
+  <!-- ================== DEPARTMENT PAGE LAYOUT ================== -->
+  <div class="department-page-layout">
+
+    <!-- ====== SIDEBAR (FILTERS) - To be built next ====== -->
+    <aside class="department-sidebar">
+      <h2 class="sidebar-title">Filters</h2>
+      <div id="dynamic-filter-form-container">
         <!-- The entire filter form will be rendered here by JavaScript -->
-    </div>
+      </div>
 
-    <form class="filter-form">
+      <form class="filter-form">
 
-         <div id="dynamic-filter-groups-container">
-            <!-- Dynamic filter groups (Brand, Category, etc.) will be rendered here -->
+        <div id="dynamic-filter-groups-container">
+          <!-- Dynamic filter groups (Brand, Category, etc.) will be rendered here -->
         </div>
 
         <!-- Filter Group: Category -->
@@ -54,127 +53,136 @@
 
         <!-- Filter Group: Price Range -->
         <div class="filter-group">
-            <label for="filter-price" class="filter-label">Price Range</label>
-            <div class="price-range-labels">
-                <span>$10</span>
-                <span>$500</span>
-            </div>
-            <input type="range" id="filter-price" class="filter-range" min="10" max="500" value="255">
+          <label for="filter-price" class="filter-label">Price Range</label>
+          <div class="price-range-labels">
+            <span>$10</span>
+            <span>$500</span>
+          </div>
+          <input type="range" id="filter-price" class="filter-range" min="10" max="500" value="255">
         </div>
 
         <!-- Filter Group: Stock Status -->
         <div class="filter-group">
-            <div class="radio-group">
-                <input type="radio" id="in-stock" name="stock_status" value="in_stock" checked>
-                <label for="in-stock">In Stock</label>
-            </div>
-            <div class="radio-group">
-                <input type="radio" id="out-of-stock" name="stock_status" value="out_of_stock">
-                <label for="out-of-stock">Out of Stock</label>
-            </div>
+          <div class="radio-group">
+            <input type="radio" id="in-stock" name="stock_status" value="in_stock" checked>
+            <label for="in-stock">In Stock</label>
+          </div>
+          <div class="radio-group">
+            <input type="radio" id="out-of-stock" name="stock_status" value="out_of_stock">
+            <label for="out-of-stock">Out of Stock</label>
+          </div>
         </div>
-        
+
         <!-- Action Button -->
         <div class="filter-group">
-           <button type="submit" class="btn btn-primary apply-filters-btn" style="width:100%; margin-top: 1rem;">Apply Filters</button>
+          <button type="submit" class="btn btn-primary apply-filters-btn" style="width:100%; margin-top: 1rem;">Apply
+            Filters</button>
         </div>
-    </form>
-    <!-- CORRECTED: A single container for our dynamic form -->
-    <div id="dynamic-filter-form-container">
+      </form>
+      <!-- CORRECTED: A single container for our dynamic form -->
+      <div id="dynamic-filter-form-container">
         <!-- The entire filter form will be rendered here by JavaScript -->
-    </div>
-</aside>
+      </div>
+    </aside>
 
-            <!-- ====== MAIN CONTENT (PRODUCT GRID) - To be built next ====== -->
-            <section class="department-main-content">
-    <h1 class="department-title">Lighting</h1>
+    <!-- ====== MAIN CONTENT (PRODUCT GRID) - To be built next ====== -->
+    <section class="department-main-content">
+      <h1 class="department-title">Lighting</h1>
 
-     <!-- NEW: Add the Sub-Category Navigation Bar container here -->
-            <nav class="subcategory-nav" id="subcategory-nav-container">
-                <!-- Dynamic sub-category links will be rendered here by JS -->
-            </nav>
-    <div class="product-grid-wrapper">
+      <!-- NEW: Add the Sub-Category Navigation Bar container here -->
+      <nav class="subcategory-nav" id="subcategory-nav-container">
+        <!-- Dynamic sub-category links will be rendered here by JS -->
+      </nav>
+      <div class="product-grid-wrapper">
 
         <!-- ================== PRODUCT GRID ================== -->
         <div class="department-product-grid" id="product-grid-container">
-            <!-- Product 1 -->
-            <div class="d-product-card">
-                <a href="#product-link" class="d-product-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1604106634333-5b57f5dba556?q=80&w=1974&auto=format&fit=crop" alt="A modern LED bulb">
-                </a>
-                <div class="d-product-content">
-                    <h3 class="d-product-title"><a href="#product-link">LED Bulb - 10W</a></h3>
-                    <p class="d-product-description">Energy-efficient LED bulb</p>
-                    <p class="d-product-price">$12.99</p>
-                </div>
-                <!-- Add the two buttons below -->
-<div class="d-product-actions">
-    <button class="btn btn-secondary quick-view-btn" data-product-id="prod123">Quick View</button>
-    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
-</div>
-</div>
-
-            <!-- Product 2 -->
-            <div class="d-product-card">
-                <a href="#product-link" class="d-product-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1590425485906-8ea31c855a84?q=80&w=1974&auto=format&fit=crop" alt="A classic incandescent bulb">
-                </a>
-                <div class="d-product-content">
-                    <h3 class="d-product-title"><a href="#product-link">Incandescent Bulb - 60W</a></h3>
-                    <p class="d-product-description">Classic incandescent bulb</p>
-                    <p class="d-product-price">$4.99</p>
-                </div>
-                <div class="d-product-actions">
-                    <button class="btn btn-secondary quick-view-btn" data-product-id="prod124">Quick View</button>
-                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
-                </div>
+          <!-- Product 1 -->
+          <div class="d-product-card">
+            <a href="#product-link" class="d-product-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1604106634333-5b57f5dba556?q=80&w=1974&auto=format&fit=crop"
+                alt="A modern LED bulb">
+            </a>
+            <div class="d-product-content">
+              <h3 class="d-product-title"><a href="#product-link">LED Bulb - 10W</a></h3>
+              <p class="d-product-description">Energy-efficient LED bulb</p>
+              <p class="d-product-price">$12.99</p>
             </div>
-
-            <!-- Product 3 -->
-            <div class="d-product-card">
-                <a href="#product-link" class="d-product-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1569426959529-ef236b2a0468?q=80&w=1974&auto=format&fit=crop" alt="A long fluorescent tube light">
-                </a>
-                <div class="d-product-content">
-                    <h3 class="d-product-title"><a href="#product-link">Fluorescent Tube - 4ft</a></h3>
-                    <p class="d-product-description">Standard fluorescent tube</p>
-                    <p class="d-product-price">$19.50</p>
-                </div>
-                <div class="d-product-actions">
-                    <button class="btn btn-secondary quick-view-btn" data-product-id="prod125">Quick View</button>
-                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
-                </div>
+            <!-- Add the two buttons below -->
+            <div class="d-product-actions">
+              <button class="btn btn-secondary quick-view-btn" data-product-id="prod123">Quick
+                View</button>
+              <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
             </div>
+          </div>
 
-            <!-- Product 4 -->
-            <div class="d-product-card">
-                <a href="#product-link" class="d-product-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1617043783359-a5895a5a1f2f?q=80&w=1974&auto=format&fit=crop" alt="A color changing smart LED bulb">
-                </a>
-                <div class="d-product-content">
-                    <h3 class="d-product-title"><a href="#product-link">Smart LED Bulb - Color Changing</a></h3>
-                    <p class="d-product-description">Smart bulb with color control</p>
-                    <p class="d-product-price">$24.99</p>
-                </div>
-                <div class="d-product-actions">
-                    <button class="btn btn-secondary quick-view-btn" data-product-id="prod126">Quick View</button>
-                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
-                </div>
+          <!-- Product 2 -->
+          <div class="d-product-card">
+            <a href="#product-link" class="d-product-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1590425485906-8ea31c855a84?q=80&w=1974&auto=format&fit=crop"
+                alt="A classic incandescent bulb">
+            </a>
+            <div class="d-product-content">
+              <h3 class="d-product-title"><a href="#product-link">Incandescent Bulb - 60W</a></h3>
+              <p class="d-product-description">Classic incandescent bulb</p>
+              <p class="d-product-price">$4.99</p>
             </div>
+            <div class="d-product-actions">
+              <button class="btn btn-secondary quick-view-btn" data-product-id="prod124">Quick
+                View</button>
+              <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
 
-        <!-- ================== PAGINATION ================== -->
-        <nav aria-label="Pagination" class="pagination">
-            <a href="#" class="page-link prev" aria-label="Previous Page"><</a>
-            <a href="#" class="page-link current" aria-current="page">1</a>
-            <a href="#" class="page-link">2</a>
-            <a href="#" class="page-link">3</a>
-            <span class="page-link-ellipsis">...</span>
-            <a href="#" class="page-link">10</a>
-            <a href="#" class="page-link next" aria-label="Next Page">></a>
-        </nav>
-    </div>
-</section>
+          <!-- Product 3 -->
+          <div class="d-product-card">
+            <a href="#product-link" class="d-product-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1569426959529-ef236b2a0468?q=80&w=1974&auto=format&fit=crop"
+                alt="A long fluorescent tube light">
+            </a>
+            <div class="d-product-content">
+              <h3 class="d-product-title"><a href="#product-link">Fluorescent Tube - 4ft</a></h3>
+              <p class="d-product-description">Standard fluorescent tube</p>
+              <p class="d-product-price">$19.50</p>
+            </div>
+            <div class="d-product-actions">
+              <button class="btn btn-secondary quick-view-btn" data-product-id="prod125">Quick
+                View</button>
+              <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
 
+          <!-- Product 4 -->
+          <div class="d-product-card">
+            <a href="#product-link" class="d-product-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1617043783359-a5895a5a1f2f?q=80&w=1974&auto=format&fit=crop"
+                alt="A color changing smart LED bulb">
+            </a>
+            <div class="d-product-content">
+              <h3 class="d-product-title"><a href="#product-link">Smart LED Bulb - Color Changing</a></h3>
+              <p class="d-product-description">Smart bulb with color control</p>
+              <p class="d-product-price">$24.99</p>
+            </div>
+            <div class="d-product-actions">
+              <button class="btn btn-secondary quick-view-btn" data-product-id="prod126">Quick
+                View</button>
+              <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- ================== PAGINATION ================== -->
+          <nav aria-label="Pagination" class="pagination">
+            <a href="#" class="page-link prev" aria-label="Previous Page">
+              << /a>
+                <a href="#" class="page-link current" aria-current="page">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <span class="page-link-ellipsis">...</span>
+                <a href="#" class="page-link">10</a>
+                <a href="#" class="page-link next" aria-label="Next Page">></a>
+          </nav>
         </div>
-    </div>
-  
+    </section>
+
+  </div>
+</div>
